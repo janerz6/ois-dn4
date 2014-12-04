@@ -193,7 +193,7 @@ function getITM(ehrId){
 						headers: {"Ehr-Session": sessionId},
 						success: function (weight) {
 							for(var i = 0; i < weight.length; i++){
-								$('.personalInfo').append("\n"+weight[i].weight / Math.pow(height[i].height,2));
+								$('.personalInfo').append("\n"+parseFloat(weight[i].weight) / Math.pow(parseFloat(height[i].height),2));
 								console.log(weight);
 							}
 						},
