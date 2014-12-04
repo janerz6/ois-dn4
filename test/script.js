@@ -185,10 +185,23 @@ function getITM(ehrId){
 			url: baseUrl + '/view/'+ehrId+'/height',
 			type: 'GET',
 			headers: {"Ehr-Session": sessionId},
-	    	success: function (data) {
-				console.log("Uspesno prebrano.");
-				$('.personalInfo').append(data);			
-				console.log(data);
+	    	success: function (height) {
+				console.log("Uspesno prebrano Height.");
+					$.ajax({
+						url: baseUrl + '/view/'+ehrId+'/height',
+						type: 'GET',
+						headers: {"Ehr-Session": sessionId},
+						success: function (weight) {
+							for(var i = 0; i < weight.length; i++){
+								$('.personalInfo').append("\n"+weight[i] / Math.pow(height[i],2));
+								console.log(weight);
+							}
+						},
+						error: function(err) {
+							$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+							console.log("Napaka, branje ..."+JSON.parse(err.responseText).userMessage);
+						}
+					});
 			},
 			error: function(err) {
 				$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
