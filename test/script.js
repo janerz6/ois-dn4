@@ -63,9 +63,9 @@ function kreirajEHRzaBolnikaData(ime,priimek,datumRojstva,meritve) {
 		            data: JSON.stringify(partyData),
 		            success: function (party) {
 		                if (party.action == 'CREATE') {
-		                	$("#kreirajSporocilo").append("<span class='obvestilo label label-success fade-in'> Uspešno kreirana oseba za ehrID'" + ehrId + "'blabla!</span><br>");
+		                	$("#kreirajSporocilo").append("<span class='obvestilo label label-success fade-in'> Uspešno kreirana oseba za ehrID'" + ehrId + "'!</span><br>");
 		                	$('#patients').append('<option value="'+ehrId+'">'+ime+" "+priimek +'</option>');
-		                	console.log("Uspešno kreirana oseba ehrID '" + ehrId +"' append");
+		                	console.log("Uspešno kreirana oseba ehrID '" + ehrId +"'");
 		                	dodajMeritveVitalnihZnakovData(ehrId,meritve);
 		                }
 		            },
@@ -162,22 +162,21 @@ function preberiEHRodBolnikaData(ehrId) {
 	    	success: function (data) {
 				var party = data.party;
 				console.log("Uspesno prebrano.");
-				return party;
-			
+				$('.personsName').html(party.firstNames);
+				$('.personsLastName').html(party.lastNames);
+				$('.personsBirth').html((party.dateOfBirth).substr(0,10));
 			},
 			error: function(err) {
 				$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 				console.log("Napaka, branje ..."+JSON.parse(err.responseText).userMessage);
-				return null;
+				
 			}
 		});
 	}	
 }
 
 $(document).ready(function() {
-	$('.personalInfo').change(function() {
-		var data = preberiEHRodBolnikaData((this).val());
-		alert(data);
-		
+	$('#patients').change(function() {
+		preberiEHRodBolnikaData($(this).val());
 	});
 });
