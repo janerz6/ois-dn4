@@ -217,7 +217,7 @@ function getITM(ehrId){
 	
 }
 
-function getIP(json){
+function getIP(){
    if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
     else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
   
