@@ -187,7 +187,7 @@ function getITM(ehrId){
 			headers: {"Ehr-Session": sessionId},
 	    	success: function (data) {
 				console.log("Uspesno prebrano.");
-				$('personalInfo').append(data);			
+				$('.personalInfo').append(data);			
 				
 			},
 			error: function(err) {
