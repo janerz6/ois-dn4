@@ -188,12 +188,12 @@ function getITM(ehrId){
 	    	success: function (height) {
 				console.log("Uspesno prebrano Height.");
 					$.ajax({
-						url: baseUrl + '/view/'+ehrId+'/height',
+						url: baseUrl + '/view/'+ehrId+'/weight',
 						type: 'GET',
 						headers: {"Ehr-Session": sessionId},
 						success: function (weight) {
 							for(var i = 0; i < weight.length; i++){
-								$('.personalInfo').append("\n"+weight[i] / Math.pow(height[i],2));
+								$('.personalInfo').append("\n"+weight[i].weight / Math.pow(height[i].height,2));
 								console.log(weight);
 							}
 						},
