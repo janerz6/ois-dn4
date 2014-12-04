@@ -227,7 +227,7 @@ function getIP(){
         var city = data['city'],
           //  $countryCode = data['country_code'],
           //  $countryName = data['country_name'];
-       		alert(ip +" "+city);
+       		alert(ip +" "+city)
     }
 });
 }
