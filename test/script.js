@@ -182,7 +182,7 @@ function getITM(ehrId){
 		$("#preberiSporocilo").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevan podatek!");
 	} else {
 		$.ajax({
-			url: baseUrl + '/view/'+ehrId+'/height?limit=20',
+			url: baseUrl + '/view/'+ehrId+'/height',
 			type: 'GET',
 			headers: {"Ehr-Session": sessionId},
 	    	success: function (data) {
