@@ -188,7 +188,7 @@ function getITM(ehrId){
 	    	success: function (data) {
 				console.log("Uspesno prebrano.");
 				$('.personalInfo').append(data);			
-				
+				console.log(data);
 			},
 			error: function(err) {
 				$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
