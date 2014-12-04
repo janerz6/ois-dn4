@@ -224,10 +224,10 @@ function getIP(){
     url: 'http://api.hostip.info/get_json.php',
     success: function(data) {
         var ip = data['ip'];
-        var city = data['city'],
+        var city = data['city'];
           //  $countryCode = data['country_code'],
           //  $countryName = data['country_name'];
-       		alert(ip +" "+city)
+       		alert(ip +" "+city);
     }
 });
 }
