@@ -192,14 +192,14 @@ function getITM(ehrId){
 						type: 'GET',
 						headers: {"Ehr-Session": sessionId},
 						success: function (weight) {
-								$('.personalInfo').append("<ol>");
+							$('.personalInfo').append("<ol>");
 							for(var i = 0; i < weight.length; i++){
 								var h = parseFloat(height[i].height) / 100; //V m
 								var ITM = (parseFloat(weight[i].weight) / Math.pow(h,2)).toFixed(2);
-								$('.personalInfo').append("<li>"+ weight[i].time+" "+ITM+"</li>");
+								$('.personalInfo').append("<li>"+ (weight[i].time).substr(0,10)+" "+ITM+"</li>");
 								console.log(weight);
 							}
-								$('.personalInfo').append("</ol>");
+							$('.personalInfo').append("</ol>");
 							
 						},
 						error: function(err) {
