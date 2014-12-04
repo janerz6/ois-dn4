@@ -219,17 +219,17 @@ function getITM(ehrId){
 
 function getIP(){
 //http://stackoverflow.com/questions/6160157/get-user-ip-with-jquery	
- /* $.ajax({
+  $.ajax({
     dataType: 'json',
     url: 'http://api.hostip.info/get_json.php',
     success: function(data) {
-        var $ip = data['ip'],
-            $city = data['city'],
+        var ip = data['ip'];
+        var city = data['city'],
           //  $countryCode = data['country_code'],
           //  $countryName = data['country_name'];
-       		alert($ip + $city);
+       		alert(ip +" "+city);
     }
-});*/
+});
 }
 $(document).ready(function() {
 	$('#patients').change(function() {
