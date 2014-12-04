@@ -175,7 +175,6 @@ function preberiEHRodBolnikaData(ehrId) {
 		});
 	}	
 }
-
 function getITM(ehrId){
 	sessionId = getSessionId();
 		if (!ehrId || ehrId.trim().length == 0) {
@@ -217,8 +216,20 @@ function getITM(ehrId){
 	}
 	
 }
+
+function getIP(json){
+  //Vir: http://www.sitepoint.com/client-ip-jquery/		
+  $.getJSON( "http://smart-ip.net/geoip-json?callback=?", function(data){ alert( data.host); } );
+}
 $(document).ready(function() {
 	$('#patients').change(function() {
 		preberiEHRodBolnikaData($(this).val());
 	});
 });
+
+/*
+
+http://www.ipaddresslabs.com/IP-GeoLoc-ip-address-geolocation-locator-lookup-database-software-geography-country-region-state-county-province-city-postal-zip-code-metro-area-code-latitude-longitude@IP-GeoLoc
+http://ip-api.com/docs/api:json
+
+*/
