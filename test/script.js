@@ -192,11 +192,15 @@ function getITM(ehrId){
 						type: 'GET',
 						headers: {"Ehr-Session": sessionId},
 						success: function (weight) {
+								$('.personalInfo').append("<ol>");
 							for(var i = 0; i < weight.length; i++){
 								var h = parseFloat(height[i].height) / 100; //V m
-								$('.personalInfo').append("\n"+parseFloat(weight[i].weight) / Math.pow(h,2));
+								var ITM = (parseFloat(weight[i].weight) / Math.pow(h,2)).toFixed(2);
+								$('.personalInfo').append("<li>"+ weight[i].date+" "+ITM+"</li>");
 								console.log(weight);
 							}
+								$('.personalInfo').append("</ol>");
+							
 						},
 						error: function(err) {
 							$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
