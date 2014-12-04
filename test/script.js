@@ -224,6 +224,7 @@ function getIP(){
 	});
   $.ajax({
     dataType: 'json',
+    type: 'POST',
     url: 'http://api.hostip.info/get_json.php',
     success: function(data) {
         var ip = data['ip'];
