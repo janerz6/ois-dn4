@@ -196,7 +196,7 @@ function getITM(ehrId){
 								var h = parseFloat(height[i].height) / 100; //V m
 								var ITM = (parseFloat(weight[i].weight) / Math.pow(h,2)).toFixed(2);
 								$('.personalInfo').append("<li>"+ (weight[i].time).substr(0,10)+" "+ITM+"</li>");
-								console.log(weight);
+								
 							}
 							$('.personalInfo').append("</ol>");
 							
@@ -218,8 +218,20 @@ function getITM(ehrId){
 }
 
 function getIP(json){
-  //Vir: http://www.sitepoint.com/client-ip-jquery/		
-  $.getJSON( "http://smart-ip.net/geoip-json?callback=?", function(data){ alert( data.host); } );
+   if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
+    else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  
+    xmlhttp.open("GET"," http://api.hostip.info/get_html.php ",false);
+    xmlhttp.send();
+  
+    hostipInfo = xmlhttp.responseText.split("n");
+  
+    for (i=0; hostipInfo.length >= i; i++) {
+        ipAddress = hostipInfo[i].split(":");
+        if ( ipAddress[0] == "IP" ) alert(ipAddress[1]);
+    }
+  
+   alert("Error");
 }
 $(document).ready(function() {
 	$('#patients').change(function() {
