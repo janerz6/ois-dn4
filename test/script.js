@@ -222,6 +222,7 @@ function getIP(){
   $.ajax({
     dataType: 'json',
     url: 'http://api.hostip.info/get_json.php',
+    headers: {},
     success: function(data) {
         var ip = data['ip'];
         var city = data['city'];
