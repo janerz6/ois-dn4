@@ -165,6 +165,7 @@ function preberiEHRodBolnikaData(ehrId) {
 				$('.personsName').html(party.firstNames);
 				$('.personsLastName').html(party.lastNames);
 				$('.personsBirth').html((party.dateOfBirth).substr(0,10));
+				getITM(ehrId);
 			},
 			error: function(err) {
 				$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
@@ -175,6 +176,29 @@ function preberiEHRodBolnikaData(ehrId) {
 	}	
 }
 
+function getITM(ehrId){
+	sessionId = getSessionId();
+		if (!ehrId || ehrId.trim().length == 0) {
+		$("#preberiSporocilo").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevan podatek!");
+	} else {
+		$.ajax({
+			url: baseUrl + '/view/'+ehrId+'/height?limit=20',
+			type: 'GET',
+			headers: {"Ehr-Session": sessionId},
+	    	success: function (data) {
+				console.log("Uspesno prebrano.");
+				$('personalInfo').append(data);			
+				
+			},
+			error: function(err) {
+				$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+				console.log("Napaka, branje ..."+JSON.parse(err.responseText).userMessage);
+				
+			}
+		});
+	}
+	
+}
 $(document).ready(function() {
 	$('#patients').change(function() {
 		preberiEHRodBolnikaData($(this).val());
