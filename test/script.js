@@ -218,20 +218,18 @@ function getITM(ehrId){
 }
 
 function getIP(){
-   if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
-    else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-  
-    xmlhttp.open("GET"," http://api.hostip.info/get_html.php ",false);
-    xmlhttp.send();
-  
-    hostipInfo = xmlhttp.responseText.split("n");
-  
-    for (i=0; hostipInfo.length >= i; i++) {
-        ipAddress = hostipInfo[i].split(":");
-        if ( ipAddress[0] == "IP" ) alert(ipAddress[1]);
+//http://stackoverflow.com/questions/6160157/get-user-ip-with-jquery	
+  $.ajax({
+    dataType: 'json',
+    url: 'http://api.hostip.info/get_json.php',
+    success: function(data) {
+        var $ip = data['ip'],
+            $city = data['city'],
+          //  $countryCode = data['country_code'],
+          //  $countryName = data['country_name'];
+       		alert($ip + $city);
     }
-  
-   alert("Error");
+});
 }
 $(document).ready(function() {
 	$('#patients').change(function() {
