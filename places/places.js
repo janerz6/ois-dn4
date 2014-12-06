@@ -141,7 +141,7 @@ function createMarkers(places) {
 google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function(){
- $('.places').on('click', 'a', function() {
+ $('#places').on('click', 'a', function() {
    alert("Delej");
 });
   
