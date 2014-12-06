@@ -84,7 +84,7 @@ function createMarkers(places) {
       position: place.geometry.location
     });
 
-    placesList.innerHTML += '<a href="#" value="'+place.place_id+' onclick="selectMarker(this)" class="list-group-item">'+ place.name+'</a>';
+    placesList.innerHTML += '<a href="#" value="'+place.place_id+' class="list-group-item">'+ place.name+'</a>';
     
     
     google.maps.event.addListener(marker, 'click', function(){
@@ -137,13 +137,12 @@ function createMarkers(places) {
   
   
 }
-function selectmarker(th){
-   alert("delej");
-   console.log("Delej");
-}
+
 google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function(){
- 
+ $('.places').on('click', 'a', function() {
+   alert("Delej");
+});
   
 });
