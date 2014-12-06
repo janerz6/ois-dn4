@@ -145,7 +145,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function(){
  $('#places').on('click', 'a', function() {
-   
+   $('places').find('a').removeClass('active');
+   $(this).addClass('active');
    var id = $(this).attr('value');
    alert(id);
    google.maps.event.trigger(markers[id], 'click');
