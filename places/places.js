@@ -129,7 +129,7 @@ function createMarkers(places) {
             contentString+='<a href="'+place.url+'">Webpage</a>';
           var infowindow = new google.maps.InfoWindow({content: contentString });
           markers[place.place_id].infowindow = infowindow;
-          marker.infowindow.open(map, marker);
+          infowindow.open(map, marker);
          }
         else alert("Napaka");
       });
