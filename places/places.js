@@ -84,7 +84,7 @@ function createMarkers(places) {
       id: place.place_id,
       position: place.geometry.location
     });
-    
+    markers[place.place_id] = marker;
     placesList.innerHTML += '<a href="javaScript:void(0);" value="'+place.place_id+'" class="list-group-item">'+ place.name+'</a>';
     
     
@@ -125,10 +125,6 @@ function createMarkers(places) {
           if(place.url != null)
             contentString+='<a href="'+place.url+'">Webpage</a>';
           var infowindow = new google.maps.InfoWindow({content: contentString });
-          marker.infowindow = infowindow;
-          
-          markers[place.place_id] = marker;
-          
           infowindow.open(map, marker);
      }
     else alert("Napaka");
