@@ -104,7 +104,7 @@ function createMarkers(places) {
             position: place.geometry.location,
             id: place.place_id
           });
-          
+          selectedInfo = place.place_id;
           
           var contentString = '<h3>'+place.name+'</h3>';
           if (place.opening_hours && place.opening_hours.open_now){
@@ -151,7 +151,6 @@ $(document).ready(function(){
    var id = $(this).attr('value');
    if(markers[selectedInfo])
     markers[selectedInfo].infowindow.close();
-   selectedInfo = id;
    google.maps.event.trigger(markers[id], 'click');
 });
   
