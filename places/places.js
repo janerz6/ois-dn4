@@ -1,4 +1,4 @@
-var map, placesList,crd;
+var map, placesList,crd,selectedInfo;
 var markers = {};
 
 
@@ -148,7 +148,8 @@ $(document).ready(function(){
    $('#places').find('a').removeClass('active');
    $(this).addClass('active');
    var id = $(this).attr('value');
-   alert(id);
+   markers[selectedInfo].infowindow.close();
+   selectedInfo = id;
    google.maps.event.trigger(markers[id], 'click');
 });
   
