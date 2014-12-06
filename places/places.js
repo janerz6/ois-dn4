@@ -1,5 +1,5 @@
 var map, placesList,crd;
-var markers{};
+var markers = {};
 
 
 function success(pos) {
@@ -84,7 +84,7 @@ function createMarkers(places) {
       id: place.place_id,
       position: place.geometry.location
     });
-    markers[place.place_id]=marker;
+    markers[place.place_id] = marker;
     placesList.innerHTML += '<a href="javaScript:void(0);" value="'+place.place_id+'" class="list-group-item">'+ place.name+'</a>';
     
     
@@ -145,10 +145,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function(){
  $('#places').on('click', 'a', function() {
-   alert("Delej");
-   //var id = this.attr('value');
-   //alert(id);
-   //google.maps.event.trigger(markers[id], 'click');
+   
+   var id = this.attr('value');
+   alert(id);
+   google.maps.event.trigger(markers[id], 'click');
 });
   
 });
