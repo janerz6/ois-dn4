@@ -84,7 +84,7 @@ function createMarkers(places) {
       id: place.place_id,
       position: place.geometry.location
     });
-   
+    markers[place.place_id] = marker;
     placesList.innerHTML += '<a href="javaScript:void(0);" value="'+place.place_id+'" class="list-group-item">'+ place.name+'</a>';
     
     
@@ -98,13 +98,8 @@ function createMarkers(places) {
       
       service.getDetails(request, function(place, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          var marker = new google.maps.Marker({
-            map: map,
-            icon: ic,
-            position: place.geometry.location,
-            id: place.place_id
-          });
-          //Poskrbim za brisanje in odpiranje markerjev
+          
+          //Poskrbim za brisanje in odpiranje markerje
           if(markers[selectedInfo])
             markers[selectedInfo].infowindow.close();
           selectedInfo = place.place_id;
@@ -128,7 +123,7 @@ function createMarkers(places) {
           if(place.url != null)
             contentString+='<a href="'+place.url+'">Webpage</a>';
           var infowindow = new google.maps.InfoWindow({content: contentString });
-          markers[place.place_id] = infowindow;
+          markers[place.place_id].infowindow = infowindow;
           infowindow.open(map, marker);
          }
         else alert("Napaka");
