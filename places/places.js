@@ -84,7 +84,8 @@ function createMarkers(places) {
       position: place.geometry.location
     });
 
-    placesList.innerHTML += '<li value="'+place.place_id+'"><a href="">' + place.name+'</a></li>';
+    placesList.innerHTML += '<a href="#" value="'+place.place_id+'" class="list-group-item">'+ place.name+'</a>';
+    
     
     google.maps.event.addListener(marker, 'click', function(){
       var request = {
