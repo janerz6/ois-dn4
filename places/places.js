@@ -98,7 +98,12 @@ function createMarkers(places) {
       
       service.getDetails(request, function(place, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          
+          var marker = new google.maps.Marker({
+            map: map,
+            icon: ic,
+            position: place.geometry.location,
+            id: place.place_id
+          });
           //Poskrbim za brisanje in odpiranje markerje
           if(markers[selectedInfo])
             markers[selectedInfo].infowindow.close();
