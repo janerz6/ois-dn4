@@ -87,6 +87,7 @@ function createMarkers(places) {
     markers[place.place_id] = marker;
     placesList.innerHTML += '<a href="javaScript:void(0);" value="'+place.place_id+'" class="list-group-item">'+ place.name+'</a>';
     
+    
     google.maps.event.addListener(marker, 'click', function(){
       var request = {
         placeId: this.id
@@ -124,10 +125,11 @@ function createMarkers(places) {
           if(place.url != null)
             contentString+='<a href="'+place.url+'">Webpage</a>';
           var infowindow = new google.maps.InfoWindow({content: contentString });
+          markers[place.place_id].infowindow = infowindow;
           infowindow.open(map, marker);
-     }
-    else alert("Napaka");
-  });
+         }
+        else alert("Napaka");
+      });
       
     });
    
@@ -147,7 +149,8 @@ $(document).ready(function(){
    $('#places').find('a').removeClass('active');
    $(this).addClass('active');
    var id = $(this).attr('value');
-  
+   markers[selectedInfo].infowindow.close();
+   selectedInfo = id;
    google.maps.event.trigger(markers[id], 'click');
 });
   
