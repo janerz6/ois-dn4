@@ -149,7 +149,8 @@ $(document).ready(function(){
    $('#places').find('a').removeClass('active');
    $(this).addClass('active');
    var id = $(this).attr('value');
-   markers[selectedInfo].infowindow.close();
+   if(markers[selectedInfo])
+    markers[selectedInfo].infowindow.close();
    selectedInfo = id;
    google.maps.event.trigger(markers[id], 'click');
 });
