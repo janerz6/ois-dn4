@@ -142,6 +142,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 $(document).ready(function(){
  $('#places a').click(function(){
         alert("delej");
+        console.log("Delej");
   });
   
 });
