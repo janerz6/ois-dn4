@@ -1,4 +1,5 @@
 var map, placesList,crd;
+var markers{};
 
 
 function success(pos) {
@@ -83,7 +84,7 @@ function createMarkers(places) {
       id: place.place_id,
       position: place.geometry.location
     });
-
+    markers[place.place_id]=marker;
     placesList.innerHTML += '<a href="javaScript:void(0);" value="'+place.place_id+'" class="list-group-item">'+ place.name+'</a>';
     
     
@@ -100,8 +101,10 @@ function createMarkers(places) {
           var marker = new google.maps.Marker({
             map: map,
             icon: ic,
-            position: place.geometry.location
+            position: place.geometry.location,
+            id: place.place_id
           });
+          
           
           var contentString = '<h3>'+place.name+'</h3>';
           if (place.opening_hours && place.opening_hours.open_now){
@@ -143,6 +146,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 $(document).ready(function(){
  $('#places').on('click', 'a', function() {
    alert("Delej");
+   var id = this.attr('value');
+   $(markers[id].id).trigger('click');
 });
   
 });
