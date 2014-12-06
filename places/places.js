@@ -87,7 +87,6 @@ function createMarkers(places) {
     markers[place.place_id] = marker;
     placesList.innerHTML += '<a href="javaScript:void(0);" value="'+place.place_id+'" class="list-group-item">'+ place.name+'</a>';
     
-    
     google.maps.event.addListener(marker, 'click', function(){
       var request = {
         placeId: this.id
