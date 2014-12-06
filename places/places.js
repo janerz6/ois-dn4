@@ -147,7 +147,7 @@ $(document).ready(function(){
  $('#places').on('click', 'a', function() {
    var id = this.attr('value');
    alert(id);
-   google.maps.event.trigger(markers[id], 'click');
+   //google.maps.event.trigger(markers[id], 'click');
 });
   
 });
