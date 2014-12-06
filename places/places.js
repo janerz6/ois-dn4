@@ -137,7 +137,7 @@ function createMarkers(places) {
   
   
 }
-function selectMarker(th){
+function selectmarker(th){
    alert("delej");
    console.log("Delej");
 }
