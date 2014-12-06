@@ -104,6 +104,9 @@ function createMarkers(places) {
             position: place.geometry.location,
             id: place.place_id
           });
+          //Poskrbim za brisanje in odpiranje markerjev
+          if(markers[selectedInfo])
+            markers[selectedInfo].infowindow.close();
           selectedInfo = place.place_id;
           
           var contentString = '<h3>'+place.name+'</h3>';
@@ -149,8 +152,6 @@ $(document).ready(function(){
    $('#places').find('a').removeClass('active');
    $(this).addClass('active');
    var id = $(this).attr('value');
-   if(markers[selectedInfo])
-    markers[selectedInfo].infowindow.close();
    google.maps.event.trigger(markers[id], 'click');
 });
   
