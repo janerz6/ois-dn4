@@ -108,11 +108,11 @@ function createMarkers(places) {
             contentString+='Oppened: '+oppened+'<br>';
           }
           if (place.opening_hours && place.opening_hours.periods && place.opening_hours.periods[0].open && place.opening_hours.periods[0].close)
-            contentString+='Oppening hours: MON-FRI:'+place.opening_hours.periods[1].open.time.substr(0,2)+':'+place.opening_hours.periods[1].open.time.substr(2,4)+
+            contentString+='Oppening hours:<br>MON-FRI: '+place.opening_hours.periods[1].open.time.substr(0,2)+':'+place.opening_hours.periods[1].open.time.substr(2,4)+
             '-'+place.opening_hours.periods[1].close.time.substr(0,2)+':'+place.opening_hours.periods[1].close.time.substr(2,4)+'<br>'+
-            'SAT'+place.opening_hours.periods[6].open.time.substr(0,2)+':'+place.opening_hours.periods[6].open.time.substr(2,4)+
+            'SAT: '+place.opening_hours.periods[6].open.time.substr(0,2)+':'+place.opening_hours.periods[6].open.time.substr(2,4)+
             '-'+place.opening_hours.periods[6].close.time.substr(0,2)+':'+place.opening_hours.periods[6].close.time.substr(2,4)+'<br>'+
-            'SUN'+place.opening_hours.periods[0].open.time.substr(0,2)+':'+place.opening_hours.periods[0].open.time.substr(2,4)+
+            'SUN: '+place.opening_hours.periods[0].open.time.substr(0,2)+':'+place.opening_hours.periods[0].open.time.substr(2,4)+
             '-'+place.opening_hours.periods[0].close.time.substr(0,2)+':'+place.opening_hours.periods[0].close.time.substr(2,4)+'<br>'
             ;
             
