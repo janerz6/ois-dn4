@@ -254,7 +254,17 @@ $(document).ready(function() {
 		}
 		 $btn.button('reset')
   })
-  
+  myObjects = {};
+
+ // start JSON retrieval here
+ $.getJSON('/data.json', function(data) {
+     // 'data' contains your JSON.
+     // do things with it here in the context of this function.
+     // then add it to your global object for later use.
+     myObjects.myJson = data; 
+     console.log(myObjects.myJson);
+ });
+
 });
 /*
 
