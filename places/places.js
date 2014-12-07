@@ -134,7 +134,7 @@ function createMarkers(places) {
     google.maps.event.addListener(marker, 'click', function(){
        if(markers[selectedInfo])
           markers[selectedInfo].infowindow.close();
-        selectedInfo = place.place_id;
+        selectedInfo = marker.id;
       if(marker.infowindow)
         infowindow.open(map, marker);
     });
