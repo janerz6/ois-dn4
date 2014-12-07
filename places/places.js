@@ -134,9 +134,9 @@ function createMarkers(places) {
     google.maps.event.addListener(marker, 'click', function(){
        if(markers[selectedInfo])
           markers[selectedInfo].infowindow.close();
-        selectedInfo = marker.id;
+        selectedInfo = this.id;
       if(marker.infowindow)
-        marker.infowindow.open(map, marker);
+        this.infowindow.open(map, marker);
     });
    
     //console.log(place.formatted_phone_number);
