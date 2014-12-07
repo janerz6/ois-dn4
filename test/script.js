@@ -211,10 +211,8 @@ function getITM(ehrId){
 	}
 }
 function checkVitals(){
-	console.log("Loading json...\n");
-	$.getJSON('data.json', function(data) {
-  	console.log("Podatki: " + data);
-})
+	
+console.log("(:POOP:)");
 }
 
 function drawITMChart(data){
@@ -254,11 +252,10 @@ $(document).ready(function() {
 		}
 		 $btn.button('reset')
   })
-
- // start JSON retrieval here
- var fs = require('fs');
- var json = JSON.parse(fs.readFileSync('data.json', 'utf8'));
- console.log("Json: \n"+ json.toString());
+	console.log("Loading json...\n");
+	$.getJSON('data.json', function(data) {
+  	console.log("Podatki: " + data);
+ 
 });
 /*
 
