@@ -20,9 +20,8 @@ function success(pos) {
   var request = {
     location: pyrmont,
     radius: 5000,
-    keyword: "gym",
-    keyword: "fit",
-    types: ['restaurant','gym']
+    keyword: getURLParameter('keyword1'),
+    types: getURLParameter('types')
   };
   
   placesList = document.getElementById('places');
