@@ -212,8 +212,8 @@ function getITM(ehrId){
 	}
 }
 function checkVitals(){
-	
-console.log("(:POOP:)");
+	jsonData = JSON.parse('{"BMI":{	"underweight":{	"min":0,"max":18.50	}"normal":{	"min":18.50,"max":24.99	}"overweight":{	"min":25.00,"max":29.99	}"obese":{	"min":30.00,"max":1000}	}}');
+	console.log(jsonData.toString());
 }
 
 function drawITMChart(data){
@@ -236,22 +236,6 @@ function drawITMChart(data){
 							
 }
 
-function loadJSON(filename){
-  $.ajax({
-		type: "POST",
-		url: filename,
-		dataType: "json",
-		async: false,
-		success: function(json) {
-      		jsonData = json;
-      		console.log("sucess");
-		},
-		error: function (xhr, status, error) {
-         console.log("Load error"+ status+error);
-    }
-		});
-}
-
 $(document).ready(function() {
 	
 	$('#patients').change(function() {
@@ -268,9 +252,6 @@ $(document).ready(function() {
 		}
 		 $btn.button('reset')
   })
-	loadJSON("data.json");
-  	
-	
 });
 /*
 
