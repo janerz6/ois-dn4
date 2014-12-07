@@ -5,20 +5,20 @@ var queryUrl = baseUrl + '/query';
 var username = "ois.seminar";
 var password = "ois4fri";
 
-var measures1 = [{date:'2000-10-20T12:30',weight:85,height:188,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'},
-				{date:'2000-10-20T12:30',weight:85,height:188,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'},
-				{date:'2000-10-20T12:30',weight:85,height:188,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'},
-				{date:'2000-10-20T12:30',weight:85,height:188,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'}];
+var measures1 = [{date:'2001-10-20T12:30',weight:85,height:188,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'},
+				{date:'2003-10-20T12:30',weight:85,height:188,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'},
+				{date:'2005-10-20T12:30',weight:85,height:188,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'},
+				{date:'2009-10-20T12:30',weight:85,height:188,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'}];
 				
-var measures2 = [{date:'2010-10-20T18:30',weight:55,height:178,temp:36,sistolic:125,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'},
-				{date:'2010-10-20T18:30',weight:55,height:178,temp:36,sistolic:125,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'},	
-				{date:'2010-10-20T18:30',weight:55,height:178,temp:36.5,sistolic:125,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'},
-				{date:'2010-10-20T18:30',weight:55,height:178,temp:37.2,sistolic:125,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'}];
+var measures2 = [{date:'2010-10-20T18:30',weight:40,height:150,temp:36,sistolic:125,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'},
+				{date:'2011-10-20T18:30',weight:42,height:155,temp:36,sistolic:125,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'},	
+				{date:'2012-10-20T18:30',weight:44,height:158,temp:36.5,sistolic:125,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'},
+				{date:'2013-10-20T18:30',weight:58,height:162,temp:37.2,sistolic:125,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'}];
 				
-var measures3 = [{date:'2014-03-01T07:15',weight:45,height:173,temp:38,sistolic:115,diastolic:79,oxigen:88,measurer:'Dr. Dakl'},
-				{date:'2014-03-01T07:15',weight:45,height:173,temp:38,sistolic:115,diastolic:79,oxigen:88,measurer:'Dr. Dakl'},
-				{date:'2014-03-01T07:15',weight:45,height:173,temp:38,sistolic:115,diastolic:79,oxigen:88,measurer:'Dr. Dakl'},
-				{date:'2014-03-01T07:15',weight:45,height:173,temp:38,sistolic:115,diastolic:79,oxigen:88,measurer:'Dr. Dakl'}];
+var measures3 = [{date:'2010-03-01T07:15',weight:45,height:173,temp:38,sistolic:115,diastolic:79,oxigen:88,measurer:'Dr. Dakl'},
+				{date:'2011-03-01T07:15',weight:45,height:173,temp:38,sistolic:115,diastolic:79,oxigen:88,measurer:'Dr. Dakl'},
+				{date:'2012-03-01T07:15',weight:45,height:173,temp:38,sistolic:115,diastolic:79,oxigen:88,measurer:'Dr. Dakl'},
+				{date:'2013-03-01T07:15',weight:45,height:173,temp:38,sistolic:115,diastolic:79,oxigen:88,measurer:'Dr. Dakl'}];
 				
 var persons = [	{name:'David',surname:'Mesarić',birth:'1938-10-30T14:58', measures: measures1},
 				{name:'Brigita',surname:'Šuler',birth:'1999-11-06T18:28', measures: measures2},
@@ -79,17 +79,7 @@ function kreirajEHRzaBolnikaData(ime,priimek,datumRojstva,meritve) {
 	}
 }
 
-function generate(){
-	$('#loadButt').show();
-	$("#kreirajSporocilo").html('<br>');
-	for (var i=0;i < persons.length; i++){
-		kreirajEHRzaBolnikaData(persons[i].name, persons[i].surname, persons[i].birth,persons[i].measures);
-		
-	}
-//	$('#loadButt').hide();
-	
-	
-}
+
 
 function dodajMeritveVitalnihZnakovData(ehrId,measures) {
 	sessionId = getSessionId();
@@ -105,6 +95,8 @@ function dodajMeritveVitalnihZnakovData(ehrId,measures) {
 			var sistolicniKrvniTlak = measures[i].sistolic.toString();
 			var diastolicniKrvniTlak = measures[i].diastolic.toString();
 			var nasicenostKrviSKisikom = measures[i].oxigen.toString();
+			var h =telesnaVisina / 100; //V m
+			var ITM = telesnaTeza / Math.pow(h,2);
 			var merilec = measures[i].measurer;
 			$.ajaxSetup({
 			    headers: {"Ehr-Session": sessionId}
@@ -116,6 +108,7 @@ function dodajMeritveVitalnihZnakovData(ehrId,measures) {
 			    "ctx/time": datumInUra,
 			    "vital_signs/height_length/any_event/body_height_length": telesnaVisina,
 			    "vital_signs/body_weight/any_event/body_weight": telesnaTeza,
+			    "vital_signs/body_mass_index/any_event/body_mass_index": ITM,
 			   	"vital_signs/body_temperature/any_event/temperature|magnitude": telesnaTemperatura,
 			    "vital_signs/body_temperature/any_event/temperature|unit": "°C",
 			    "vital_signs/blood_pressure/any_event/systolic": sistolicniKrvniTlak,
@@ -191,15 +184,17 @@ function getITM(ehrId){
 						type: 'GET',
 						headers: {"Ehr-Session": sessionId},
 						success: function (weight) {
-							$('.personalInfo').append("<ol>");
+							$('.BMIs').html("");
+							var data = [];
 							for(var i = 0; i < weight.length; i++){
 								var h = parseFloat(height[i].height) / 100; //V m
 								var ITM = (parseFloat(weight[i].weight) / Math.pow(h,2)).toFixed(2);
-								$('.personalInfo').append("<li>"+ (weight[i].time).substr(0,10)+" "+ITM+"</li>");
-								
+								$('.BMIs').append("<li>"+ (weight[i].time).substr(0,10)+" "+ITM+"</li>");
+								var d = {year: (weight[i].time).substr(0,4),value: ITM }
+								data[i]= d; 
 							}
-							$('.personalInfo').append("</ol>");
-							
+							drawITMChart(data);
+							checkVitals();
 						},
 						error: function(err) {
 							$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
@@ -214,36 +209,56 @@ function getITM(ehrId){
 			}
 		});
 	}
-	
+}
+function checkVitals(){
+	$.getJSON('./data.json', function(data) {
+  	console.log(data);
+})
 }
 
-function getIP(){
-//http://stackoverflow.com/questions/6160157/get-user-ip-with-jquery	
-  	$.ajaxSetup({
-		 headers: {}
-	});
-  $.ajax({
-    dataType: 'json',
-    type: 'POST',
-    url: 'http://api.hostip.info/get_json.php',
-    success: function(data) {
-        var ip = data['ip'];
-        var city = data['city'];
-          //  $countryCode = data['country_code'],
-          //  $countryName = data['country_name'];
-       		alert(ip +" "+city);
-    }
-});
+function drawITMChart(data){
+	 $('#ITMchart').html('');
+	  new Morris.Line({
+	  // ID of the element in which to draw the chart.
+	  element: 'ITMchart',
+	  // Chart data records -- each entry in this array corresponds to a point on
+	  // the chart.
+	  data: data,
+	  // The name of the data record attribute that contains x-values.
+	  xkey: 'year',
+	  // A list of names of data record attributes that contain y-values.
+	  ykeys: ['value'],
+	  // Labels for the ykeys -- will be displayed when you hover over the
+	  // chart.
+	  labels: ['Value']
+	  });
+	 
+							
 }
+
+
+
 $(document).ready(function() {
+	
 	$('#patients').change(function() {
 		preberiEHRodBolnikaData($(this).val());
+		$('.personalInfo').slideDown(1500);
 	});
+	
+  $('#loadButton').on('click', function () {
+	 	var $btn = $(this).button('loading')
+		$("#kreirajSporocilo").html('<br>');
+		for (var i=0;i < persons.length; i++){
+			kreirajEHRzaBolnikaData(persons[i].name, persons[i].surname, persons[i].birth,persons[i].measures);
+		}
+		 $btn.button('reset')
+  })
+  
 });
-
 /*
 
-http://www.ipaddresslabs.com/IP-GeoLoc-ip-address-geolocation-locator-lookup-database-software-geography-country-region-state-county-province-city-postal-zip-code-metro-area-code-latitude-longitude@IP-GeoLoc
-http://ip-api.com/docs/api:json
+https://developers.google.com/maps/documentation/javascript/places?csw=1#TextSearchRequests
+http://api.bigoven.com/documentation/recipe-search-results
+http://morrisjs.github.io/morris.js/
 
 */
