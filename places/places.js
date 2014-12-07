@@ -16,12 +16,14 @@ function success(pos) {
     center: pyrmont,
     zoom: 17
   });
-  alert(getURLParameter('types'));
+  
+  var types = [];
+  types.push(getURLParameter('type1'));
   var request = {
     location: pyrmont,
     radius: 5000,
     keyword: getURLParameter('keyword1'),
-    types: [getURLParameter('type1')]
+    types: types
   };
   
   placesList = document.getElementById('places');
