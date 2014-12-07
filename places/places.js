@@ -98,7 +98,7 @@ function createMarkers(places) {
     });
     markers[place.place_id] = marker;
     
-    //Detail poizvedba
+    //Detail poizvedba v kateri pogledam dodatne inforacije o kraju in pripravim infowindow
     var request = {  placeId: place.place_id };
     var service = new google.maps.places.PlacesService(map);
    
@@ -130,9 +130,8 @@ function createMarkers(places) {
     
     placesList.innerHTML += '<a href="javaScript:void(0);" value="'+place.place_id+'" class="list-group-item">'+ place.name+'</a>';
     
-    
+    //Poslušalec za klik na posamezen markers
     google.maps.event.addListener(marker, 'click', function(){
-      
        if(markers[selectedInfo])
           markers[selectedInfo].infowindow.close();
         selectedInfo = this.id;
