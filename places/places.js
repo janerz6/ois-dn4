@@ -132,6 +132,8 @@ function createMarkers(places) {
     
     
     google.maps.event.addListener(marker, 'click', function(){
+        $('#places').find('a').removeClass('active');
+        $('#places a[id="'+markers[this.id]+'"]').addClass('active');
        if(markers[selectedInfo])
           markers[selectedInfo].infowindow.close();
         selectedInfo = this.id;
@@ -152,8 +154,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function(){
  $('#places').on('click', 'a', function() {
-   $('#places').find('a').removeClass('active');
-   $(this).addClass('active');
    var id = $(this).attr('value');
    google.maps.event.trigger(markers[id], 'click');
 });
