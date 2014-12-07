@@ -21,7 +21,7 @@ function success(pos) {
     location: pyrmont,
     radius: 5000,
     keyword: getURLParameter('keyword1'),
-    types: getURLParameter('types')
+    types: [getURLParameter('type1')]
   };
   
   placesList = document.getElementById('places');
