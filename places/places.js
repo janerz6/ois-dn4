@@ -16,7 +16,7 @@ function success(pos) {
     center: pyrmont,
     zoom: 17
   });
-
+  alert(getURLParameter('types'));
   var request = {
     location: pyrmont,
     radius: 5000,
