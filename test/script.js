@@ -190,7 +190,7 @@ function getITM(ehrId){
 							for(var i = 0; i < weight.length; i++){
 								var h = parseFloat(height[i].height) / 100; //V m
 								var ITM = (parseFloat(weight[i].weight) / Math.pow(h,2)).toFixed(2);
-								$('.BMIs').append("<li>"+ (weight[i].time).substr(0,10)+" "+ITM+"</li>");
+							 //	$('.BMIs').append("<li>"+ (weight[i].time).substr(0,10)+" "+ITM+"</li>");
 								var d = {year: (weight[i].time).substr(0,4),value: ITM }
 								data[i]= d; 
 							}

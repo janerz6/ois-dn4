@@ -42,50 +42,61 @@
 				border:1px,solid,gray;
 				padding:3px;
 			}
+			#header{
+				text-align:center;
+			}
 	     </style>
     </head>
     <body>
-        	<div class="row">
-			<div class="col-lg-6 col-md-6 col-sm-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-lg-8 col-md-8 col-sm-8"><b>Generator podatkov</b> za 3 bolnike</div>
-						</div>
-					</div>
-					<div class="panel-body">
-						<button id="loadButton" type="button" class="btn btn-primary btn-ms" data-loading-text="Loading..." autocomplete="off">Generiraj</button><span id="kreirajSporocilo"></span>
-				  	</div>
+    <div id="header"><h1>Zdravo življenje <small>za uporabnike platforme ehrScape</small> </h1></div>	
+    <hr>
+	<div class="row">
+	<div class="col-lg-3 col-md-3 col-sm-3">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-lg-8 col-md-8 col-sm-8"><b>Generator podatkov</b> za 3 bolnike</div>
 				</div>
 			</div>
+			<div class="panel-body">
+				<button id="loadButton" type="button" class="btn btn-primary btn-ms" data-loading-text="Loading..." autocomplete="off">Generiraj</button><span id="kreirajSporocilo"></span>
+		  	</div>
+		</div>
+	</div>
+	<div class="col-lg-9 col-md-9 col-sm-9">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6"><b>Podatki</b> o izbranem bolniku</div>
+					<div class="col-lg-6 col-md-6 col-sm-6"><select class="form-control input-sm" id="patients"><option value=""></option></select></div>
+				</div>
 			</div>
-			<div class="row">
-			<div class="col-lg-9 col-md-9 col-sm-9">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-lg-6 col-md-6 col-sm-6"><b>Podatki o izbranem bolniku</b></div>
-							<div class="col-lg-6 col-md-6 col-sm-6"><select class="form-control input-sm" id="patients"><option value=""></option></select></div>
-
-						</div>
-					</div>
-					<div class="panel-body">
-						<div class="personalInfo">
-							<div><span class="label label-default">Ime:</span>&nbsp;<span class="personsName"></span></div>
+			<div class="panel-body">
+				<div class="personalInfo">
+					<div class="panel panel-default col-col-md-6">
+					  <div class=panel-heading>Osebni podatki</div>	
+					  <div class="panel-body">
+					  		<div><span class="label label-default">Ime:</span>&nbsp;<span class="personsName"></span></div>
 							<div><span class="label label-default">Priimek:</span>&nbsp;<span class="personsLastName"></span></div>
-							<div><span class="label label-default">Rojstvo:</span>&nbsp;<span class="personsBirth"></span></div>
-							<div><ol class="BMIs"></ol></div>
-							<div id="ITMchartPanel"class="panel panel-warning">
-								<div class="panel-heading">Graph of BMI</div>
-								<div class="panel-body">
-									<div id="ITMchart" class="col-lg-8"  style="height: 250px;"></div>
-								</div>
-								
-							</div>
+							<div><span class="label label-default">Rojstvo:</span>&nbsp;<span class="personsBirth"></span></div>  
+					  </div>
 					</div>
+					
+					<div id="ITMchartPanel"class="panel panel-warning">
+						<div class="panel-heading">Graph of BMI</div>
+						<div class="panel-body">
+							<div id="ITMchart" class="col-lg-8"  style="height: 250px;"></div>
+						</div>
+						
 					</div>
-				</div>	
 			</div>
 			</div>
+		</div>	
+		<a href="../places/places.html" target="_blank">Priporočila za vas</a>
+	</div>
+	</div>
+	
+	
+	
     </body>
 </html>
