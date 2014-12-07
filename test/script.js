@@ -212,7 +212,8 @@ function getITM(ehrId){
 	}
 }
 function checkVitals(){
-	jsonData = JSON.parse('{"BMI":{	"underweight":{	"min":0,"max":18.50	}"normal":{	"min":18.50,"max":24.99	}"overweight":{	"min":25.00,"max":29.99	}"obese":{	"min":30.00,"max":1000}	}}');
+	var txt = '{"BMI":{	"underweight":{	"min":0,"max":18.50	}"normal":{	"min":18.50,"max":24.99	}"overweight":{	"min":25.00,"max":29.99	}"obese":{	"min":30.00,"max":1000}	}}';
+	jsonData = JSON.parse(txt);
 	console.log(jsonData.toString());
 }
 
