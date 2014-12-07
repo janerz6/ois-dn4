@@ -211,6 +211,7 @@ function getITM(ehrId){
 	}
 }
 function checkVitals(){
+	console.log("Loading json...\n");
 	$.getJSON('./data.json', function(data) {
   	console.log(data);
 })
