@@ -136,7 +136,7 @@ function createMarkers(places) {
           markers[selectedInfo].infowindow.close();
         selectedInfo = this.id;
       if(markers[this.id].infowindow)
-       markers[this.id].infowindow.open(map, marker);
+       markers[this.id].infowindow.open(map, markers[this.id]);
     });
    
     //console.log(place.formatted_phone_number);
