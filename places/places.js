@@ -133,7 +133,7 @@ function createMarkers(places) {
     
     //Poslušalec za klik na posamezen markers
     google.maps.event.addListener(marker, 'click', function(){
-       if(markers[selectedInfo])
+       if(selectedInfo != -1 && markers[selectedInfo])
           markers[selectedInfo].infowindow.close();
         selectedInfo = this.id;
       if(markers[this.id].infowindow)
