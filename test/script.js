@@ -236,8 +236,7 @@ function drawITMChart(data){
 							
 }
 
-function loadJSON(filename)
-{
+function loadJSON(filename){
   $.ajax({
 		type: "GET",
 		url: filename,
@@ -265,7 +264,7 @@ $(document).ready(function() {
 		 $btn.button('reset')
   })
 	loadJSON("data.json");
-  	console.log("Podatki: " + jsonData);
+  	console.log("Podatki: " + jsonData.BMI);
 	
 });
 /*
