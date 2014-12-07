@@ -238,14 +238,17 @@ function drawITMChart(data){
 
 function loadJSON(filename){
   $.ajax({
-		type: "GET",
+		type: "POST",
 		url: filename,
 		dataType: "json",
 		async: false,
 		success: function(json) {
       		jsonData = json;
       		console.log("sucess");
-		}
+		},
+		error: function (xhr, status, error) {
+         console.log("Load error"+ status+error);
+    }
 		});
 }
 
