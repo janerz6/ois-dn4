@@ -144,13 +144,26 @@ function createMarkers(places) {
     bounds.extend(place.geometry.location);
   }
   map.fitBounds(bounds);
-  
-  
+}
+function getURLParameter(name)
+{
+    var url = window.location.href.split('?');
+    url = url[1];
+    var params = url.split('&');
+    for (var i = 0; i < params.length; i++) 
+    {
+        var param = params[i].split('=');
+        if (param[0] == name) 
+        {
+            return param[1];
+        }
+    }
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function(){
+ alert(getURLParameter("keyword"));  
  $('#places').on('click', 'a', function() {
    $('#places').find('a').removeClass('active');
    $(this).addClass('active');
