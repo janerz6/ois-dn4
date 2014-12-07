@@ -4,15 +4,15 @@
 					"min":0,
 					"max":18.50		
 					}	
-	"normal":{
+	,"normal":{
 				"min":18.50,
 				"max":24.99		
 				}
-	"overweight":{
+	,"overweight":{
 				"min":25.00,
 				"max":29.99	
 				}
-	"obese":{
+	,"obese":{
 			"min":30.00,
 			"max":1000		
 			}
