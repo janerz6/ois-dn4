@@ -155,7 +155,7 @@ function getURLParameter(name)
         if (param[0] == name) 
         {
           var val = param[1];
-          val.replace('%27',"'");
+          val.replace('%27',"\'");
           return val;
         }
     }
