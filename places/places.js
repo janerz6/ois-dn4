@@ -126,7 +126,7 @@ function createMarkers(places) {
         var infowindow = new google.maps.InfoWindow({content: contentString });
         markers[place.place_id].infowindow = infowindow;
        }
-      else{ console.error("Napaka");
+      else{ //console.error("Napaka");
         markers[place.place_id].infowindow = new google.maps.InfoWindow({content: ''}); 
       }
     });
