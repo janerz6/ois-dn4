@@ -13,7 +13,7 @@ function success(pos) {
   console.log('Longitude: ' + crd.longitude);
   console.log('More or less ' + crd.accuracy + ' meters.');
  
-  var pyrmont = new google.maps.LatLng(crd.latitude, crd.longitude);
+  pyrmont = new google.maps.LatLng(crd.latitude, crd.longitude);
 
   map = new google.maps.Map(document.getElementById('map-canvas'), {
     center: pyrmont,
