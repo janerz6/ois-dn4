@@ -133,7 +133,7 @@ function createMarkers(places) {
     
     google.maps.event.addListener(marker, 'click', function(){
         $('#places').find('a').removeClass('active');
-        $('#places a[id="'+markers[this.id]+'"]').addClass('active');
+        $('#places a[value="'+markers[this.id]+'"]').addClass('active');
        if(markers[selectedInfo])
           markers[selectedInfo].infowindow.close();
         selectedInfo = this.id;
