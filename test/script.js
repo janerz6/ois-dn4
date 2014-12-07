@@ -1,6 +1,7 @@
 
 var baseUrl = 'https://rest.ehrscape.com/rest/v1';
 var queryUrl = baseUrl + '/query';
+var jsonData;
 
 var username = "ois.seminar";
 var password = "ois4fri";
@@ -235,7 +236,18 @@ function drawITMChart(data){
 							
 }
 
-
+function loadJSON(filename)
+{
+  $.ajax({
+		type: "GET",
+		url: filename,
+		dataType: "json",
+		async: false,
+		success: function(json) {
+      		jsonData = json;
+		}
+		});
+}
 
 $(document).ready(function() {
 	
@@ -252,10 +264,9 @@ $(document).ready(function() {
 		}
 		 $btn.button('reset')
   })
-	console.log("Loading json...\n");
-	$.getJSON('data.json', function(data) {
-  	console.log("Podatki: " + data);
-	});
+	loadJSON("data.json");
+  	console.log("Podatki: " + jsonData);
+	
 });
 /*
 
