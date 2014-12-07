@@ -1,4 +1,4 @@
-var map, placesList,crd,selectedInfo;
+var map, placesList,crd,selectedInfo=-1;
 var markers = {};
 
 
