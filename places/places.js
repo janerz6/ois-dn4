@@ -1,4 +1,4 @@
-var map, placesList,crd,selectedInfo=-1;
+var map, placesList,crd,selectedInfo=-1,id;
 var markers = {};
 
 
@@ -99,7 +99,7 @@ function createMarkers(places) {
       position: place.geometry.location
     });
     markers[place.place_id] = marker;
-    
+    id = place.place_id;
     //Detail poizvedba v kateri pogledam dodatne inforacije o kraju in pripravim infowindow
     var request = {  placeId: place.place_id };
     var service = new google.maps.places.PlacesService(map);
@@ -128,7 +128,7 @@ function createMarkers(places) {
         markers[place.place_id].infowindow = infowindow;
        }
       else{ //console.error("Napaka");
-        markers[place.place_id].infowindow = new google.maps.InfoWindow({content: ''}); 
+        markers[id].infowindow = new google.maps.InfoWindow({content: ''}); 
       }
     });
     
