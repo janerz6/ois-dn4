@@ -99,7 +99,7 @@ function createMarkers(places) {
       position: place.geometry.location
     });
     markers[place.place_id] = marker;
-    id = place.place_id;
+    markers[place.place_id].infowindow = new google.maps.InfoWindow({content: place.name}); 
     //Detail poizvedba v kateri pogledam dodatne inforacije o kraju in pripravim infowindow
     var request = {  placeId: place.place_id };
     var service = new google.maps.places.PlacesService(map);
@@ -127,8 +127,7 @@ function createMarkers(places) {
         var infowindow = new google.maps.InfoWindow({content: contentString });
         markers[place.place_id].infowindow = infowindow;
        }
-      else{ //console.error("Napaka");
-        markers[id].infowindow = new google.maps.InfoWindow({content: ''}); 
+      else{ console.error("Napaka");
       }
     });
     
