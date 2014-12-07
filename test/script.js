@@ -257,7 +257,7 @@ $(document).ready(function() {
   myObjects = {};
 
  // start JSON retrieval here
- $.getJSON('/data.json', function(data) {
+ $.getJSON('./data.json', function(data) {
      // 'data' contains your JSON.
      // do things with it here in the context of this function.
      // then add it to your global object for later use.
