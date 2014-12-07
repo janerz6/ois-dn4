@@ -1,8 +1,7 @@
 var map, placesList,crd,selectedInfo=-1,id;
 var markers = {};
 var requests = {};
-requests['emergency']={location: pyrmont,radius: 5000,keyword:'emergency', types: ['hospital']};
-requests['overweight']={location: pyrmont,radius: 5000, types: ['gym','park']};
+
 
 
 function success(pos) {
@@ -13,13 +12,15 @@ function success(pos) {
   console.log('Longitude: ' + crd.longitude);
   console.log('More or less ' + crd.accuracy + ' meters.');
  
-  pyrmont = new google.maps.LatLng(crd.latitude, crd.longitude);
-
+  var pyrmont = new google.maps.LatLng(crd.latitude, crd.longitude);
+  
   map = new google.maps.Map(document.getElementById('map-canvas'), {
     center: pyrmont,
     zoom: 10
   });
   
+  requests['emergency']={location: pyrmont,radius: 5000,keyword:'emergency', types: ['hospital']};
+  requests['overweight']={location: pyrmont,radius: 5000, types: ['gym','park']};
   
   var request = requests[getURLParameter('keyword')];
   
