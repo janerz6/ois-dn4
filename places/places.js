@@ -19,9 +19,10 @@ function success(pos) {
     zoom: 10
   });
   
-  requests['emergency']={location: pyrmont,radius: 5000,keyword:'emergency', types: ['hospital']};
-  requests['overweight']={location: pyrmont,radius: 5000, types: ['gym','park']};
-  
+  requests['emergency'] = {location: pyrmont,radius: 5000,keyword:'emergency', types: ['hospital']};
+  requests['overweight'] = {location: pyrmont,radius: 5000, types: ['gym','park']};
+  requests['obese'] = {location: pyrmont,radius: 5000, types: ['gym','hospital']};
+  requests['underweight'] = {location: pyrmont,radius: 5000, types: ['hospital','health','food']}; 
   var request = requests[getURLParameter('keyword')];
   
   placesList = document.getElementById('places');
