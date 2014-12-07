@@ -14,11 +14,13 @@ function success(pos) {
 
   map = new google.maps.Map(document.getElementById('map-canvas'), {
     center: pyrmont,
-    zoom: 17
+    zoom: 10
   });
   
   var types = [];
   types.push(getURLParameter('type1'));
+  if(getURLParameter('type2'))
+    types.push(getURLParameter('type2'));
   var request = {
     location: pyrmont,
     radius: 5000,
