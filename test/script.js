@@ -216,13 +216,13 @@ function checkVitals(data){
 	jsonData = JSON.parse(txt);
 	var itm = data[data.length-1].value;
 	if( itm < jsonData.BMI.underweight.max)
-		alert("Underweight");
+		alert("Underweight "+itm);
 	else if(itm < jsonData.BMI.normal.max)
-		alert("Normal");
+		alert("Normal"+itm);
 	else if(itm < jsonData.BMI.overweight.max)
-		alert("Overweight");
+		alert("Overweight "+itm);
 	else
-		alert("Obese");
+		alert("Obese "+itm);
 }
 
 function drawITMChart(data){
