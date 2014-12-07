@@ -241,7 +241,6 @@ $(document).ready(function() {
 	$('#patients').change(function() {
 		preberiEHRodBolnikaData($(this).val());
 		$('.personalInfo').slideDown(1500);
-		console.log("Podatki: " + jsonData.BMI);
 	});
 	
   $('#loadButton').on('click', function () {
