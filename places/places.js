@@ -1,5 +1,8 @@
 var map, placesList,crd,selectedInfo=-1,id;
 var markers = {};
+var requests = {};
+requests['emergency']={location: pyrmont,radius: 5000,keyword:'emergency', types: ['hospital']};
+requests['overweight']={location: pyrmont,radius: 5000, types: ['gym','park']};
 
 
 function success(pos) {
@@ -17,15 +20,8 @@ function success(pos) {
     zoom: 10
   });
   
-  var types = [];
-  types.push(getURLParameter('type1'));
-  if(getURLParameter('type2'))
-    types.push(getURLParameter('type2'));
-  var request = {
-    location: pyrmont,
-    radius: 5000,
-    types: types
-  };
+  
+  var request = requests[getURLParameter('keyword')];
   
   placesList = document.getElementById('places');
 
