@@ -214,7 +214,15 @@ function getITM(ehrId){
 function checkVitals(){
 	var txt = '{"BMI":{	"underweight":{	"min":0,"max":18.50	},"normal":{	"min":18.50,"max":24.99	},"overweight":{	"min":25.00,"max":29.99	},"obese":{	"min":30.00,"max":1000}	}}';
 	jsonData = JSON.parse(txt);
-	console.log(jsonData.toString());
+	var itm = 17;
+	if( itm < jsonData.BMI.underweight.max)
+		alert("Underweight");
+	else if(itm < jsonData.BMI.normal.max)
+		alert("Normal");
+	else if(itm < jsonData.BMI.overweight.max)
+		alert("Overweight");
+	else
+		alert("Obese");
 }
 
 function drawITMChart(data){
