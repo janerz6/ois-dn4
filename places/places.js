@@ -24,7 +24,6 @@ function success(pos) {
   var request = {
     location: pyrmont,
     radius: 5000,
-    keyword: getURLParameter('keyword1'),
     types: types
   };
   
