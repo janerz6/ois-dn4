@@ -64,7 +64,19 @@ function callback(results, status, pagination) {
     }
   }
 }
+/*
+var request = {
+  placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4'
+};
 
+service = new google.maps.places.PlacesService(map);
+service.getDetails(request, callback);
+
+function callback(place, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    createMarker(place);
+  }
+}*/
 function createMarkers(places) {
   var bounds = new google.maps.LatLngBounds();
 
@@ -84,56 +96,47 @@ function createMarkers(places) {
       id: place.place_id,
       position: place.geometry.location
     });
+    
+    
+    //Detail poizvedba
+    var request = {  placeId: place.place_id };
+    var service = new google.maps.places.PlacesService(map);
+   
+    service.getDetails(request, function(place, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        var contentString = '<h3>'+place.name+'</h3>';
+        if (place.opening_hours && place.opening_hours.open_now){
+          var oppened = (place.opening_hours.open_now) ? "Yes":"No";
+          contentString+='Oppened: '+oppened+'<br>';
+        }
+        if (place.opening_hours && place.opening_hours.periods && place.opening_hours.periods[0].open && place.opening_hours.periods[0].close)
+          contentString+='Oppening hours:<br>MON-FRI: '+place.opening_hours.periods[1].open.time.substr(0,2)+':'+place.opening_hours.periods[1].open.time.substr(2,4)+
+          '-'+place.opening_hours.periods[1].close.time.substr(0,2)+':'+place.opening_hours.periods[1].close.time.substr(2,4)+'<br>'+
+          'SAT: '+place.opening_hours.periods[6].open.time.substr(0,2)+':'+place.opening_hours.periods[6].open.time.substr(2,4)+
+          '-'+place.opening_hours.periods[6].close.time.substr(0,2)+':'+place.opening_hours.periods[6].close.time.substr(2,4)+'<br>'+
+          'SUN: '+place.opening_hours.periods[0].open.time.substr(0,2)+':'+place.opening_hours.periods[0].open.time.substr(2,4)+
+          '-'+place.opening_hours.periods[0].close.time.substr(0,2)+':'+place.opening_hours.periods[0].close.time.substr(2,4)+'<br>'
+          ;
+          
+        if(place.rating != null)
+          contentString+='Rating: '+place.rating+'<br>';
+        if(place.url != null)
+          contentString+='<a href="'+place.url+'">Webpage</a>';
+        var infowindow = new google.maps.InfoWindow({content: contentString });
+        marker.infowindow = infowindow;
+       }
+      else console.error("Napaka");
+    });
     markers[place.place_id] = marker;
     placesList.innerHTML += '<a href="javaScript:void(0);" value="'+place.place_id+'" class="list-group-item">'+ place.name+'</a>';
     
     
     google.maps.event.addListener(marker, 'click', function(){
-      var request = {
-        placeId: this.id
-      };
-      
-      var service = new google.maps.places.PlacesService(map);
-      var ic = this.icon; 
-      
-      service.getDetails(request, function(place, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-          var marker = new google.maps.Marker({
-            map: map,
-            icon: ic,
-            position: place.geometry.location,
-            id: place.place_id
-          });
-          //Poskrbim za brisanje in odpiranje markerje
-          if(markers[selectedInfo])
-            markers[selectedInfo].infowindow.close();
-          selectedInfo = place.place_id;
-          
-          var contentString = '<h3>'+place.name+'</h3>';
-          if (place.opening_hours && place.opening_hours.open_now){
-            var oppened = (place.opening_hours.open_now) ? "Yes":"No";
-            contentString+='Oppened: '+oppened+'<br>';
-          }
-          if (place.opening_hours && place.opening_hours.periods && place.opening_hours.periods[0].open && place.opening_hours.periods[0].close)
-            contentString+='Oppening hours:<br>MON-FRI: '+place.opening_hours.periods[1].open.time.substr(0,2)+':'+place.opening_hours.periods[1].open.time.substr(2,4)+
-            '-'+place.opening_hours.periods[1].close.time.substr(0,2)+':'+place.opening_hours.periods[1].close.time.substr(2,4)+'<br>'+
-            'SAT: '+place.opening_hours.periods[6].open.time.substr(0,2)+':'+place.opening_hours.periods[6].open.time.substr(2,4)+
-            '-'+place.opening_hours.periods[6].close.time.substr(0,2)+':'+place.opening_hours.periods[6].close.time.substr(2,4)+'<br>'+
-            'SUN: '+place.opening_hours.periods[0].open.time.substr(0,2)+':'+place.opening_hours.periods[0].open.time.substr(2,4)+
-            '-'+place.opening_hours.periods[0].close.time.substr(0,2)+':'+place.opening_hours.periods[0].close.time.substr(2,4)+'<br>'
-            ;
-            
-          if(place.rating != null)
-            contentString+='Rating: '+place.rating+'<br>';
-          if(place.url != null)
-            contentString+='<a href="'+place.url+'">Webpage</a>';
-          var infowindow = new google.maps.InfoWindow({content: contentString });
-          markers[place.place_id].infowindow = infowindow;
-          infowindow.open(map, marker);
-         }
-        else alert("Napaka");
-      });
-      
+       if(markers[selectedInfo])
+          markers[selectedInfo].infowindow.close();
+        selectedInfo = place.place_id;
+      if(marker.infowindow)
+        infowindow.open(map, marker);
     });
    
     //console.log(place.formatted_phone_number);
