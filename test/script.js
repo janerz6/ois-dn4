@@ -214,7 +214,13 @@ function getITM(ehrId){
 function checkVitals(data){
 	var txt = '{"BMI":{	"underweight":{	"min":0,"max":18.50	},"normal":{	"min":18.50,"max":24.99	},"overweight":{	"min":25.00,"max":29.99	},"obese":{	"min":30.00,"max":1000}	}}';
 	jsonData = JSON.parse(txt);
-	var itm = data[data.length-1].value;
+	//Najdemo zadnjo meritev
+	var itm=0;
+	for(var i=0;i < data.length; i++){
+		if(data[i].value > itm)
+			 itm= data[i].value;	
+	}
+	
 	if( itm < jsonData.BMI.underweight.max)
 		alert("Underweight "+itm);
 	else if(itm < jsonData.BMI.normal.max)
