@@ -255,7 +255,7 @@ $(document).ready(function() {
 	console.log("Loading json...\n");
 	$.getJSON('data.json', function(data) {
   	console.log("Podatki: " + data);
- 
+	});
 });
 /*
 
