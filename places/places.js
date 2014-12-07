@@ -104,7 +104,7 @@ function createMarkers(places) {
    
     service.getDetails(request, function(place, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        var contentString = '<h6>'+place.name+'</h6>';
+        var contentString = '<h5>'+place.name+'</h5>';
         if (place.opening_hours && place.opening_hours.open_now){
           var oppened = (place.opening_hours.open_now) ? "Yes":"No";
           contentString+='Oppened: '+oppened+'<br>';
