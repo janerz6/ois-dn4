@@ -262,7 +262,7 @@ $(document).ready(function() {
      // do things with it here in the context of this function.
      // then add it to your global object for later use.
      myObjects.myJson = data; 
-     console.log(myObjects.myJson);
+     console.log("JSON: \n"+myObjects.myJson.toString());
  });
 
 });
