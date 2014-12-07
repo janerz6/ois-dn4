@@ -96,7 +96,7 @@ function createMarkers(places) {
       id: place.place_id,
       position: place.geometry.location
     });
-    
+    markers[place.place_id] = marker;
     
     //Detail poizvedba
     var request = {  placeId: place.place_id };
@@ -123,11 +123,11 @@ function createMarkers(places) {
         if(place.url != null)
           contentString+='<a href="'+place.url+'">Webpage</a>';
         var infowindow = new google.maps.InfoWindow({content: contentString });
-        marker.infowindow = infowindow;
+        markers[place.place_id].infowindow = infowindow;
        }
       else console.error("Napaka");
     });
-    markers[place.place_id] = marker;
+    
     placesList.innerHTML += '<a href="javaScript:void(0);" value="'+place.place_id+'" class="list-group-item">'+ place.name+'</a>';
     
     
