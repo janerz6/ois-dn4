@@ -164,7 +164,7 @@ function getURLParameter(name)
 google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function(){
- alert(getURLParameter("keyword"));  
+ 
  $('#places').on('click', 'a', function() {
    $('#places').find('a').removeClass('active');
    $(this).addClass('active');
