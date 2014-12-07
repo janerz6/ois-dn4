@@ -148,15 +148,15 @@ function getURLParameter(name)
 {
     var url = window.location.href.split('?');
     url = url[1];
+    url =decodeURI(url);
     var params = url.split('&');
     for (var i = 0; i < params.length; i++) 
     {
         var param = params[i].split('=');
         if (param[0] == name) 
         {
-          var val = param[1];
-          val.replace('%27',"\'");
-          return val;
+         
+          return param[1];
         }
     }
 }
