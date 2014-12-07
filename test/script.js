@@ -244,6 +244,7 @@ function loadJSON(filename){
 		async: false,
 		success: function(json) {
       		jsonData = json;
+      		console.log("sucess");
 		}
 		});
 }
