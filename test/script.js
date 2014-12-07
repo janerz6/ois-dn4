@@ -254,17 +254,11 @@ $(document).ready(function() {
 		}
 		 $btn.button('reset')
   })
-  myObjects = {};
 
  // start JSON retrieval here
- $.getJSON('./data.json', function(data) {
-     // 'data' contains your JSON.
-     // do things with it here in the context of this function.
-     // then add it to your global object for later use.
-     myObjects.myJson = data; 
-     console.log("JSON: \n"+myObjects.myJson.toString());
- });
-
+ var fs = require('fs');
+ var json = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+ console.log("Json: \n"+ json.toString());
 });
 /*
 
