@@ -220,15 +220,16 @@ function checkVitals(data){
 		if(data[i].value > itm)
 			 itm= data[i].value;	
 	}
+	var link=$('#mapLink').attr('href');
 	
 	if( itm < jsonData.BMI.underweight.max)
-		alert("Underweight "+itm);
+		$('#mapLink').attr('href',link+'?keyword=underweight');
 	else if(itm < jsonData.BMI.normal.max)
-		alert("Normal"+itm);
+		$('#mapLink').attr('href',link+'?keyword=normal');
 	else if(itm < jsonData.BMI.overweight.max)
-		alert("Overweight "+itm);
+		$('#mapLink').attr('href',link+'?keyword=overweight');
 	else
-		alert("Obese "+itm);
+		$('#mapLink').attr('href',link+'?keyword=obese');
 }
 
 function drawITMChart(data){
@@ -270,7 +271,7 @@ $(document).ready(function() {
 /*
 
 https://developers.google.com/maps/documentation/javascript/places?csw=1#TextSearchRequests
-http://api.bigoven.com/documentation/recipe-search-results
+https://developers.google.com/maps/documentation/javascript/examples/place-search-pagination
 http://morrisjs.github.io/morris.js/
 
 */
