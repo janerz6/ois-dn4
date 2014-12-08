@@ -220,7 +220,7 @@ function checkVitals(data){
 		if(data[i].value > itm)
 			 itm= data[i].value;	
 	}
-	var link=$('#mapLink').attr('href');
+	var link='../places/places.html';
 	
 	if( itm < jsonData.BMI.underweight.max)
 		$('#mapLink').attr('href',link+'?keyword=underweight');
