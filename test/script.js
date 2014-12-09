@@ -252,10 +252,48 @@ function drawITMChart(data){
 							
 }
 
+function query(ehrID){
+	$.ajaxSetup({
+    headers: {
+        "Ehr-Session": sessionId
+    }
+	});
+
+	var aql = "SELECT"+
+    "c/context/start_time/value as time,"+
+    "c/name/value as name,"+
+    "t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude as temp,"+
+    "bp/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude as Systolic_magnitude,"+
+    "bp/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude as Diastolic_magnitude,"+
+    "ox/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/numerator as spO2_numerator,"+
+    "bmi/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude as Body_Mass_Index_magnitude"+
+	"FROM EHR e[ehr_id/value='790a9578-d1c1-42fb-8fd0-1ca0e9fccf9b']"+
+	"contains COMPOSITION c"+
+	"contains ("+
+    "OBSERVATION t[openEHR-EHR-OBSERVATION.body_temperature.v1] and"+
+    "OBSERVATION bp[openEHR-EHR-OBSERVATION.blood_pressure.v1] and"+
+    "OBSERVATION bmi[openEHR-EHR-OBSERVATION.body_mass_index.v1] and"+
+    "OBSERVATION ox[openEHR-EHR-OBSERVATION.indirect_oximetry.v1])"+
+	"ORDER BY context_start_time desc"+
+	"LIMIT 1";
+	$.ajax({
+	    url: baseUrl + "/query?" + $.param({"aql": aql}),
+	    type: 'GET',
+	    success: function (res) {
+	        var resulArray = res.resultSet;
+	        console.log(resulArray[0].time+" " + resulArray[0].temp +" "+resulArray[0].Systolic_magnitude );
+	    },
+	    error: function (err){
+	    	console.log(JSON.parse(err.responseText).userMessage)
+	    }
+	});
+}
+
 $(document).ready(function() {
 	
 	$('#patients').change(function() {
 		preberiEHRodBolnikaData($(this).val());
+		query($(this).val());
 		$('.personalInfo').slideDown(1500);
 	});
 	
@@ -274,4 +312,7 @@ https://developers.google.com/maps/documentation/javascript/places?csw=1#TextSea
 https://developers.google.com/maps/documentation/javascript/examples/place-search-pagination
 http://morrisjs.github.io/morris.js/
 
+Vir podatkov:
+http://www.heart.org/HEARTORG/Conditions/HighBloodPressure/AboutHighBloodPressure/Understanding-Blood-Pressure-Readings_UCM_301764_Article.jsp#
+http://en.wikipedia.org/wiki/Human_body_temperature
 */

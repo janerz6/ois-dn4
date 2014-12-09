@@ -81,14 +81,27 @@
 							<div><span class="label label-default">Rojstvo:</span>&nbsp;<span class="personsBirth"></span></div>  
 					  </div>
 					</div>
-					
-					<div id="ITMchartPanel"class="panel panel-warning">
-						<div class="panel-heading">Graph of BMI</div>
-						<div class="panel-body">
-							<div id="ITMchart" class="col-lg-8"  style="height: 250px;"></div>
+					<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6" id="vital_signs_status">
+						<h3>Stanje vitalnih znakov:</h3>
+						<table class="table table-condensed">
+							<tr><th>Vitalni znak</th><th>Datum zadnje meritve</th><th>Zadnja meritev</th><th>Stanje</th></tr>
+							<tr class="warning"><td>ITM</td><td id="ITM_last_date">20.6.2010</td><td id="ITM_last">22</td><td id="ITM_status">OK</td></tr>
+							<tr class="danger"><td>Temperatura</td><td id="temperature_last_date"></td><td id="temperature_last"></td><td id="temperature_status"></td></tr>
+ 							<tr class="active"><td>Diastolični krvni tlak</td><td id="diastolic_last_date"></td><td id="diastolic_last"></td><td id="diastolic_status"></td></tr>
+							<tr class="success"><td>Sistolični krvni tlak</td><td id="sistolic_last_date"></td><td id="sistolic_last"></td><td id="sistolic_status"></td></tr>
+							<tr class="info"><td>Kisik v krvi</td><td id="oximetry_last_date"></td><td id="oximetry_last"></td><td id="oximetry_status"></td></tr>
+						</table>
+					</div>	
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<div id="ITMchartPanel"class="panel panel-warning">
+							<div class="panel-heading">Graph of BMI</div>
+							<div class="panel-body">
+								<div id="ITMchart" class="col-lg-8"  style="height: 250px;"></div>
+							</div>
 						</div>
-						
 					</div>
+				
 			</div>
 			</div>
 		</div>	
