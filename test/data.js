@@ -123,20 +123,20 @@ var jsonData={
 	],
 "Oximetry":[
 	{
-		"max":"100",
-		"min":"95",
+		"max":100,
+		"min":95,
 		"status":"Normal",
 		"class":"success"
 	},
 	{
-		"max":"94.9",
-		"min":"90",
+		"max":95,
+		"min":90,
 		"status":"Low",
 		"class":"warning"	
 	},
 	{
-		"max":"90",
-		"min":"0",
+		"max":90,
+		"min":0,
 		"status":"Hypoxemia",
 		"class":"danger"
 	}

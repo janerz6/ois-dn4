@@ -211,7 +211,7 @@ function getITM(ehrId){
 }
 
 function checkIntervals(sign,val){
-	//console.log("nastavljam "+sign+" "+val);
+	console.log("nastavljam "+sign+" "+val);
 	var link='../places/places.html';
 	for(var i=0;i < jsonData[sign].length; i++ ){
 		var sgn=jsonData[sign][i];
@@ -227,7 +227,7 @@ function checkIntervals(sign,val){
 				$('#mapLink').attr('href',href+	"&"+$.param({"status":"emergency"}));
 			}
 			
-			//console.log("Nastavil "+sign);
+			console.log("Nastavil "+sign);
 			break;
 		}
 	}
