@@ -1,4 +1,3 @@
-
 var jsonData={
 "BMI":[
 	{	"min":0,
@@ -142,4 +141,3 @@ var jsonData={
 	}
 ]	
 };
-

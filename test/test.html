@@ -62,6 +62,19 @@
 				<button id="loadButton" type="button" class="btn btn-primary btn-ms" data-loading-text="Loading..." autocomplete="off">Generiraj</button><span id="kreirajSporocilo"></span>
 		  	</div>
 		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-lg-8 col-md-8 col-sm-8"><b>Add a patient</b></div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<span class="label label-default">Name</span><input id="kreirajIme" type="text" class="form-control input-mini" placeholder="Janez">
+				<span class="label label-default">Surname</span><input id="kreirajPriimek" type="text" class="form-control" placeholder="Novak">
+				<span class="label label-default">Date of birth:</span><input id="kreirajDatumRojstva" type="text" class="form-control" placeholder="2014-05-13T22:09">
+				<button type="button" class="btn btn-primary btn-sm" onclick="kreirajEHRzaBolnika()">Add basic patient info</button><span id="kreirajSporocilo"></span>
+			</div>
+		</div>
 	</div>
 	<div class="col-lg-9 col-md-9 col-sm-9">
 		<div class="panel panel-default">
@@ -91,7 +104,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-6" id="vital_signs_status">
 						<h3>Vital signs state:</h3>
 						<table class="table table-condensed">
-							<tr><th>Vital sign</th><th>Last measuremet's date</th><th>Last measure</th><th>Status</th></tr>
+							<tr><th>Vital sign</th><th>Last measuremet's date</th><th>Last measurement</th><th>Status</th></tr>
 							<tr class="warning"><td>ITM</td><td class="last_date">20.6.2010</td><td id="BMI_last">22</td><td id="BMI_status">OK</td></tr>
 							<tr class="danger"><td>Temperature</td><td class="last_date"></td><td id="temperature_last"></td><td id="Temperature_status"></td></tr>
  							<tr class="active"><td>Diastolic blood preasure</td><td class="last_date"></td><td id="diastolic_last"></td><td id="Diastolic_status"></td></tr>
