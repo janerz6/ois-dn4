@@ -24,6 +24,8 @@ function success(pos) {
   requests['obese'] = {location: pyrmont,radius: 5000, types: ['gym','hospital']};
   requests['underweight'] = {location: pyrmont,radius: 5000, types: ['hospital','health','food']}; 
   var request = requests[getURLParameter('keyword')];
+  if(getURLParameter('status') === "emergency")
+    request={location: pyrmont,radius: 5000, keyword:"emergency", types: ['hospital']}; 
   
   placesList = document.getElementById('places');
 

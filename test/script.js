@@ -1,7 +1,6 @@
 
 var baseUrl = 'https://rest.ehrscape.com/rest/v1';
 var queryUrl = baseUrl + '/query';
-var jsonData;
 
 var username = "ois.seminar";
 var password = "ois4fri";
@@ -195,7 +194,6 @@ function getITM(ehrId){
 								data[i]= d; 
 							}
 							drawITMChart(data);
-							checkVitals(data);
 						},
 						error: function(err) {
 							$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
@@ -211,25 +209,45 @@ function getITM(ehrId){
 		});
 	}
 }
-function checkVitals(data){
-	var txt = '{"BMI":{	"underweight":{	"min":0,"max":18.50	},"normal":{	"min":18.50,"max":24.99	},"overweight":{	"min":25.00,"max":29.99	},"obese":{	"min":30.00,"max":1000}	}}';
-	jsonData = JSON.parse(txt);
-	//Najdemo zadnjo meritev
-	var itm=0;
-	for(var i=0;i < data.length; i++){
-		if(data[i].value > itm)
-			 itm= data[i].value;	
-	}
+
+function checkIntervals(sign,val){
+	//console.log("nastavljam "+sign+" "+val);
 	var link='../places/places.html';
+	for(var i=0;i < jsonData[sign].length; i++ ){
+		var sgn=jsonData[sign][i];
+		if(sgn.max > val && sgn.min < val){
+			$("#"+sign+"_status").text(sgn.status);
+			$("#"+sign+"_status").parent().attr('class', sgn.class);
+			if(sign === "BMI"){
+				var href=$('#mapLink').attr('href');
+				$('#mapLink').attr('href',href+"?"+$.param({"keyword":sgn.status.toLowerCase()}));
+			}
+			else if(sgn.class === 'danger' && sign != "BMI"){
+				var href=$('#mapLink').attr('href');
+				$('#mapLink').attr('href',href+	"&"+$.param({"status":"emergency"}));
+			}
+			
+			//console.log("Nastavil "+sign);
+			break;
+		}
+	}
+}
+function checkVitals(){
+
+	//Najdemo zadnjo meritev
 	
-	if( itm < jsonData.BMI.underweight.max)
-		$('#mapLink').attr('href',link+'?keyword=underweight');
-	else if(itm < jsonData.BMI.normal.max)
-		$('#mapLink').attr('href',link+'?keyword=normal');
-	else if(itm < jsonData.BMI.overweight.max)
-		$('#mapLink').attr('href',link+'?keyword=overweight');
-	else
-		$('#mapLink').attr('href',link+'?keyword=obese');
+	   
+	var itm=$('#BMI_last').text();
+	var sis= $('#sistolic_last').text();
+	var dia= $('#diastolic_last').text();
+	var ox = $('#oximetry_last').text();
+	var temp = $('#temperature_last').text();
+	
+	checkIntervals("BMI",itm);
+	checkIntervals("Systolic",sis);
+	checkIntervals("Diastolic",dia);
+	checkIntervals("Temperature",temp);
+	checkIntervals("Oximetry",ox);
 }
 
 function drawITMChart(data){
@@ -259,32 +277,40 @@ function query(ehrID){
     }
 	});
 
-	var aql = "SELECT"+
-    "c/context/start_time/value as time,"+
-    "c/name/value as name,"+
-    "t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude as temp,"+
-    "bp/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude as Systolic_magnitude,"+
-    "bp/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude as Diastolic_magnitude,"+
-    "ox/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/numerator as spO2_numerator,"+
-    "bmi/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude as Body_Mass_Index_magnitude"+
-	"FROM EHR e[ehr_id/value='790a9578-d1c1-42fb-8fd0-1ca0e9fccf9b']"+
-	"contains COMPOSITION c"+
-	"contains ("+
-    "OBSERVATION t[openEHR-EHR-OBSERVATION.body_temperature.v1] and"+
-    "OBSERVATION bp[openEHR-EHR-OBSERVATION.blood_pressure.v1] and"+
-    "OBSERVATION bmi[openEHR-EHR-OBSERVATION.body_mass_index.v1] and"+
-    "OBSERVATION ox[openEHR-EHR-OBSERVATION.indirect_oximetry.v1])"+
-	"ORDER BY context_start_time desc"+
-	"LIMIT 1";
+	var aql = "select"+
+	"  c/context/start_time/value as time,"+
+	"  c/name/value as name,"+
+	"  t/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude as temp,"+
+	"  bp/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude as Systolic_magnitude,"+
+	"  bp/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude as Diastolic_magnitude,"+
+	"  ox/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/numerator as oximetry,"+
+	"  bmi/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude as itm"+
+	" from EHR e[ehr_id/value='"+ehrID+"']"+
+	" contains COMPOSITION c"+
+	" contains ("+
+	"  OBSERVATION t[openEHR-EHR-OBSERVATION.body_temperature.v1] and"+
+	"  OBSERVATION bp[openEHR-EHR-OBSERVATION.blood_pressure.v1] and"+
+	"  OBSERVATION bmi[openEHR-EHR-OBSERVATION.body_mass_index.v1] and"+
+	"  OBSERVATION ox[openEHR-EHR-OBSERVATION.indirect_oximetry.v1])"+
+	" order by time desc"+
+	" limit 1";
+	console.log(aql);
 	$.ajax({
 	    url: baseUrl + "/query?" + $.param({"aql": aql}),
 	    type: 'GET',
 	    success: function (res) {
-	        var resulArray = res.resultSet;
-	        console.log(resulArray[0].time+" " + resulArray[0].temp +" "+resulArray[0].Systolic_magnitude );
+	        var result = res.resultSet[0];
+	        $('.last_date').html(result.time.substr(0,10));
+	        $('#BMI_last').text(result.itm.toFixed(2));
+	        $('#sistolic_last').text(result.Systolic_magnitude);
+	        $('#diastolic_last').text(result.Diastolic_magnitude);
+	        $('#oximetry_last').text(result.oximetry);
+	        $('#temperature_last').text(result.temp);
+	        checkVitals();
+	        //console.log(resulArray[0].time+" " + resulArray[0].temp +" "+resulArray[0].Systolic_magnitude+" "+resulArray[0].itm );
 	    },
 	    error: function (err){
-	    	console.log(JSON.parse(err.responseText).userMessage)
+	    	console.log(JSON.parse(err.responseText).userMessage + JSON.parse(err.responseText).exceptionMessage)
 	    }
 	});
 }
@@ -292,6 +318,7 @@ function query(ehrID){
 $(document).ready(function() {
 	
 	$('#patients').change(function() {
+		$('#mapLink').attr('href','../places/places.html');
 		preberiEHRodBolnikaData($(this).val());
 		query($(this).val());
 		$('.personalInfo').slideDown(1500);

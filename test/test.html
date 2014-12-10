@@ -3,13 +3,13 @@
     <head>
     	 <title>Health app</title>	
          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-	     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-	     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	    <!--Moris charts --> 
 	    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-		
+		<script src="data.js"></script>
 	     <script src="script.js"></script>
 	     <style>
 	     	body{padding:10px;}
@@ -48,14 +48,14 @@
 	     </style>
     </head>
     <body>
-    <div id="header"><h1>Zdravo življenje <small>za uporabnike platforme ehrScape</small> </h1></div>	
+    <div id="header"><h1>Healthy lifestyle <small>for EhrScape users</small> </h1></div>	
     <hr>
 	<div class="row">
 	<div class="col-lg-3 col-md-3 col-sm-3">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="row">
-					<div class="col-lg-8 col-md-8 col-sm-8"><b>Generator podatkov</b> za 3 bolnike</div>
+					<div class="col-lg-8 col-md-8 col-sm-8"><b>Data generator </b> for 3 patients</div>
 				</div>
 			</div>
 			<div class="panel-body">
@@ -67,30 +67,36 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="row">
-					<div class="col-lg-6 col-md-6 col-sm-6"><b>Podatki</b> o izbranem bolniku</div>
-					<div class="col-lg-6 col-md-6 col-sm-6"><select class="form-control input-sm" id="patients"><option value=""></option></select></div>
+					<div class="col-lg-6 col-md-6 col-sm-6"><b>Selected pacinet's</b> info</div>
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<select class="form-control input-sm" id="patients">
+							<option value=""></option>
+							<option value="2d1444fe-898a-4596-9961-6f7903e1ba73">David Mesarič</option>
+							<option value="65fb264a-8be3-4df3-9515-8b0137d66c7a">Tina Novak</option>
+							<option value="f54d4175-3912-49a2-a1f1-c67c63accc52">Brigita Šuler</option>
+						</select></div>
 				</div>
 			</div>
 			<div class="panel-body">
 				<div class="personalInfo">
 					<div class="panel panel-default col-col-md-6">
-					  <div class=panel-heading>Osebni podatki</div>	
+					  <div class=panel-heading>Personal data</div>	
 					  <div class="panel-body">
-					  		<div><span class="label label-default">Ime:</span>&nbsp;<span class="personsName"></span></div>
-							<div><span class="label label-default">Priimek:</span>&nbsp;<span class="personsLastName"></span></div>
-							<div><span class="label label-default">Rojstvo:</span>&nbsp;<span class="personsBirth"></span></div>  
+					  		<div><span class="label label-default">Name:</span>&nbsp;<span class="personsName"></span></div>
+							<div><span class="label label-default">Surname:</span>&nbsp;<span class="personsLastName"></span></div>
+							<div><span class="label label-default">Date of birth:</span>&nbsp;<span class="personsBirth"></span></div>  
 					  </div>
 					</div>
 					<div class="row">
 					<div class="col-lg-6 col-md-6 col-sm-6" id="vital_signs_status">
-						<h3>Stanje vitalnih znakov:</h3>
+						<h3>Vital signs state:</h3>
 						<table class="table table-condensed">
-							<tr><th>Vitalni znak</th><th>Datum zadnje meritve</th><th>Zadnja meritev</th><th>Stanje</th></tr>
-							<tr class="warning"><td>ITM</td><td id="ITM_last_date">20.6.2010</td><td id="ITM_last">22</td><td id="ITM_status">OK</td></tr>
-							<tr class="danger"><td>Temperatura</td><td id="temperature_last_date"></td><td id="temperature_last"></td><td id="temperature_status"></td></tr>
- 							<tr class="active"><td>Diastolični krvni tlak</td><td id="diastolic_last_date"></td><td id="diastolic_last"></td><td id="diastolic_status"></td></tr>
-							<tr class="success"><td>Sistolični krvni tlak</td><td id="sistolic_last_date"></td><td id="sistolic_last"></td><td id="sistolic_status"></td></tr>
-							<tr class="info"><td>Kisik v krvi</td><td id="oximetry_last_date"></td><td id="oximetry_last"></td><td id="oximetry_status"></td></tr>
+							<tr><th>Vital sign</th><th>Last measuremet's date</th><th>Last measure</th><th>Status</th></tr>
+							<tr class="warning"><td>ITM</td><td class="last_date">20.6.2010</td><td id="BMI_last">22</td><td id="BMI_status">OK</td></tr>
+							<tr class="danger"><td>Temperature</td><td class="last_date"></td><td id="temperature_last"></td><td id="Temperature_status"></td></tr>
+ 							<tr class="active"><td>Diastolic blood preasure</td><td class="last_date"></td><td id="diastolic_last"></td><td id="Diastolic_status"></td></tr>
+							<tr class="success"><td>Systolic blood preasure</td><td class="last_date"></td><td id="sistolic_last"></td><td id="Systolic_status"></td></tr>
+							<tr class="info"><td>Oxigen saturation</td><td class="last_date"></td><td id="oximetry_last"></td><td id="Oximetry_status"></td></tr>
 						</table>
 					</div>	
 					<div class="col-lg-6 col-md-6 col-sm-6">
@@ -105,7 +111,7 @@
 			</div>
 			</div>
 		</div>	
-		<a id="mapLink" href="../places/places.html" target="_blank">Priporočila za vas</a>
+		<a id="mapLink" href="../places/places.html" target="_blank">Suggestions for you</a>
 	</div>
 	</div>
 	
