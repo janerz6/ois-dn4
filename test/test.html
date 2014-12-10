@@ -72,7 +72,15 @@
 				<span class="label label-default">Name</span><input id="kreirajIme" type="text" class="form-control input-mini" placeholder="Janez">
 				<span class="label label-default">Surname</span><input id="kreirajPriimek" type="text" class="form-control" placeholder="Novak">
 				<span class="label label-default">Date of birth:</span><input id="kreirajDatumRojstva" type="text" class="form-control" placeholder="2014-05-13T22:09">
-				<button type="button" class="btn btn-primary btn-sm" onclick="kreirajEHRzaBolnika()">Add basic patient info</button><span id="kreirajSporocilo"></span>
+				<span class="label label-default">Gender:</span><br>
+				<div class="btn-group" data-toggle="buttons">
+				  <label class="btn btn-info btn-xs">
+				    <input type="radio" name="options" id="option1" autocomplete="off">Male</label>
+				  <label class="btn btn-info btn-xs">
+				    <input type="radio" name="options" id="option3" autocomplete="off">Female </label>
+				</div><br><br>
+				<div><button type="button" class="btn btn-primary btn-sm" onclick="kreirajEHRzaBolnika()">Add basic patient info</button></div><span id="kreirajSporocilo"></span>
+				
 			</div>
 		</div>
 	</div>
