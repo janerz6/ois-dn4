@@ -402,6 +402,16 @@ $(document).ready(function() {
   	$('#collapseMeasurement').toggleClass('glyphicon-minus');
   	$('#collapseMeasurement').toggleClass('glyphicon-plus');
   });
+  $('#clearMeasurement').click(function(){
+  	$('#kreirajVisina').val('');
+  	$('#kreirajTeza').val('');
+  	$('#kreirajTemperatura').val('');
+  	$('#kreirajSystolicni').val('');
+  	$('#kreirajDiastolicni').val('');
+  	$('#kreirajKisik').val('');
+  	$('#kreirajMerilec').val('');
+  	$('#kreirajMsg').html('');
+  });
 });
 /*
 
