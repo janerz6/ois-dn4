@@ -45,6 +45,9 @@
 			#header{
 				text-align:center;
 			}
+			.glyphicon{
+				color:#999;
+			}
 	     </style>
     </head>
     <body>
@@ -52,7 +55,7 @@
     <hr>
 	<div class="row">
 	<div class="col-lg-3 col-md-3 col-sm-3">
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-lg-8 col-md-8 col-sm-8"><b>Data generator </b> for 3 patients</div>
@@ -62,30 +65,51 @@
 				<button id="loadButton" type="button" class="btn btn-primary btn-ms" data-loading-text="Loading..." autocomplete="off">Generiraj</button><span id="kreirajSporocilo"></span>
 		  	</div>
 		</div>
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<div class="row">
-					<div class="col-lg-8 col-md-8 col-sm-8"><b>Add a patient</b></div>
+					<div class="col-lg-8 col-md-8 col-sm-8"><b>Add a patient</b></div><div style="float:right; margin-right:10px"><button style="margin-right:10px" id="clear" class="btn btn-info btn-xs">Clear</button>
+					<span id="collapse" class="glyphicon glyphicon-minus" aria-hidden="true"></span></div>
 				</div>
 			</div>
-			<div class="panel-body">
+			<div id="patientCreator" class="panel-body">
 				<span class="label label-default">Name</span><input id="kreirajIme" type="text" class="form-control input-mini" placeholder="Janez">
 				<span class="label label-default">Surname</span><input id="kreirajPriimek" type="text" class="form-control" placeholder="Novak">
 				<span class="label label-default">Date of birth:</span><input id="kreirajDatumRojstva" type="text" class="form-control" placeholder="2014-05-13T22:09">
 				<span class="label label-default">Gender:</span><br>
 				<div class="btn-group" data-toggle="buttons">
-				  <label class="btn btn-info btn-xs">
-				    <input type="radio" name="options" id="option1" autocomplete="off">Male</label>
-				  <label class="btn btn-info btn-xs">
-				    <input type="radio" name="options" id="option3" autocomplete="off">Female </label>
+				  <label id="male" class="btn btn-info btn-xs active">
+				    <input type="radio"   autocomplete="off">Male</label>
+				  <label id="female" class="btn btn-info btn-xs">
+				    <input type="radio" autocomplete="off">Female </label>
 				</div><br><br>
-				<div><button type="button" class="btn btn-primary btn-sm" onclick="kreirajEHRzaBolnika()">Add basic patient info</button></div><span id="kreirajSporocilo"></span>
+				<div><button type="button" class="btn btn-primary btn-sm" onclick="kreirajEHRzaBolnika()">Add basic patient info</button></div><span id="kreirajMsg"></span>
 				
 			</div>
 		</div>
+		<div class="panel panel-primary">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-lg-8 col-md-8 col-sm-8"><b>Add measuremet</b></div><div style="float:right; margin-right:10px"><button style="margin-right:10px" id="clearMeasurement" class="btn btn-info btn-xs">Clear</button>
+				<span id="collapseMeasurement" class="glyphicon glyphicon-minus" aria-hidden="true"></span></div>
+			</div>
+		</div>
+		<div id="recordCreator" class="panel-body">
+			<span class="label label-default">Height</span><div class="input-group" ><input id="kreirajVisina" type="text" class="form-control input-mini" placeholder="175"><span class="input-group-addon">cm</span></div>
+			<span class="label label-default">Weight</span><div class="input-group" ><input id="kreirajTeza" type="text" class="form-control" placeholder="88"><span class="input-group-addon">kg</span></div>
+			<span class="label label-default">Temperature:</span><div class="input-group" ><input id="kreirajTemperatura" type="text" class="form-control" placeholder="37"><span class="input-group-addon">°C</span></div>
+			<span class="label label-default">Systolic blood preasure:</span><div class="input-group" ><input id="kreirajSystolicni" type="text" class="form-control" placeholder="120"><span class="input-group-addon">mm Hg</span></div>
+			<span class="label label-default">Diastolic blood preasure:</span><div class="input-group" ><input id="kreirajDiastolicni" type="text" class="form-control" placeholder="80"><span class="input-group-addon">mm Hg</span></div>
+			<span class="label label-default">Oxigen saturation:</span><div class="input-group" ><input id="kreirajKisik" type="text" class="form-control" placeholder="95"><span class="input-group-addon">%</span></div>
+			<span class="label label-default">Measurer:</span>
+			<div><div style="float:left; width:49%" class="checkbox"><label><input type="checkbox">Pacient himself</label></div> <input style="margin-left:2%; float:left; width:49%" id="kreirajMerilec" type="text" class="form-control" placeholder="Janez Novak"></div>
+			<br><br>
+			<div><button type="button" class="btn btn-primary btn-sm" onclick="dodajMeritev()">Add measuremet</button></div><span id="kreirajMsg"></span>
+		</div>
+		</div>
 	</div>
 	<div class="col-lg-9 col-md-9 col-sm-9">
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-lg-6 col-md-6 col-sm-6"><b>Selected pacinet's</b> info</div>
@@ -101,7 +125,7 @@
 			<div class="panel-body">
 				<div class="personalInfo">
 					<div class="panel panel-default col-col-md-6">
-					  <div class=panel-heading>Personal data</div>	
+					  <div class=panel-heading><b>Personal data</b></div>	
 					  <div class="panel-body">
 					  		<div><span class="label label-default">Name:</span>&nbsp;<span class="personsName"></span></div>
 							<div><span class="label label-default">Surname:</span>&nbsp;<span class="personsLastName"></span></div>
@@ -109,27 +133,31 @@
 					  </div>
 					</div>
 					<div class="row">
-					<div class="col-lg-6 col-md-6 col-sm-6" id="vital_signs_status">
-						<h3>Vital signs state:</h3>
-						<table class="table table-condensed">
-							<tr><th>Vital sign</th><th>Last measuremet's date</th><th>Last measurement</th><th>Status</th></tr>
-							<tr class="warning"><td>ITM</td><td class="last_date">20.6.2010</td><td id="BMI_last">22</td><td id="BMI_status">OK</td></tr>
-							<tr class="danger"><td>Temperature</td><td class="last_date"></td><td id="temperature_last"></td><td id="Temperature_status"></td></tr>
- 							<tr class="active"><td>Diastolic blood preasure</td><td class="last_date"></td><td id="diastolic_last"></td><td id="Diastolic_status"></td></tr>
-							<tr class="success"><td>Systolic blood preasure</td><td class="last_date"></td><td id="sistolic_last"></td><td id="Systolic_status"></td></tr>
-							<tr class="info"><td>Oxigen saturation</td><td class="last_date"></td><td id="oximetry_last"></td><td id="Oximetry_status"></td></tr>
-						</table>
-					</div>	
+					<div class="col-lg-5 col-md-5 col-sm-5" id="vital_signs_status">
+						<div class="panel panel-default">
+						<div class="panel-heading"><b>Vital signs state</b></div>
+							<div class="panel-body">
+							<table class="table table-condensed">
+								<tr><th>Vital sign</th><th>Last measuremet's date</th><th>Last measurement</th><th>Status</th></tr>
+								<tr class="warning"><td>ITM</td><td class="last_date">20.6.2010</td><td id="BMI_last">22</td><td id="BMI_status">OK</td></tr>
+								<tr class="danger"><td>Temperature</td><td class="last_date"></td><td id="temperature_last"></td><td id="Temperature_status"></td></tr>
+	 							<tr class="active"><td>Diastolic blood preasure</td><td class="last_date"></td><td id="diastolic_last"></td><td id="Diastolic_status"></td></tr>
+								<tr class="success"><td>Systolic blood preasure</td><td class="last_date"></td><td id="sistolic_last"></td><td id="Systolic_status"></td></tr>
+								<tr class="info"><td>Oxigen saturation</td><td class="last_date"></td><td id="oximetry_last"></td><td id="Oximetry_status"></td></tr>
+							</table>
+							</div>
+						</div>
+					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6">
 						<div id="ITMchartPanel"class="panel panel-warning">
-							<div class="panel-heading">Graph of BMI</div>
+							<div class="panel-heading"><b>Graph of BMI</b></div>
 							<div class="panel-body">
 								<div id="ITMchart" class="col-lg-8"  style="height: 250px;"></div>
 							</div>
 						</div>
 					</div>
 				
-			</div>
+			
 			</div>
 		</div>	
 		<a id="mapLink" href="../places/places.html" target="_blank">Suggestions for you</a>

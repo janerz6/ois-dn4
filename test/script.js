@@ -85,10 +85,10 @@ function kreirajEHRzaBolnika() {
 	var ime = $("#kreirajIme").val();
 	var priimek = $("#kreirajPriimek").val();
 	var datumRojstva = $("#kreirajDatumRojstva").val();
-	var spol = ($('#male:checked').hasClass('active')) ? "MALE":"FEMALE";
+	var spol = ($('#male').hasClass('active')) ? "MALE":"FEMALE";
 	console.log(spol);
 	if (!ime || !priimek || !datumRojstva || ime.trim().length == 0 || priimek.trim().length == 0 || datumRojstva.trim().length == 0) {
-		$("#kreirajSporocilo").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevane podatke!</span>");
+		$("#kreirajMsg").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevane podatke!</span>");
 	} else {
 		$.ajaxSetup({
 		    headers: {"Ehr-Session": sessionId}
@@ -112,13 +112,13 @@ function kreirajEHRzaBolnika() {
 		            data: JSON.stringify(partyData),
 		            success: function (party) {
 		                if (party.action == 'CREATE') {
-		                    $("#kreirajSporocilo").html("<span class='obvestilo label label-success fade-in'>Uspešno kreiran EHR '" + ehrId + "'.</span>");
+		                    $("#kreirajMsg").html("<span class='obvestilo label label-success fade-in'>Uspešno kreiran EHR '" + ehrId + "'.</span>");
 		                    console.log("Uspešno kreiran EHR '" + ehrId + "'.");
-		                    $("#preberiEHRid").val(ehrId);
+		                   	$('#patients').append('<option value="'+ehrId+'">'+ime+" "+priimek +'</option>');
 		                }
 		            },
 		            error: function(err) {
-		            	$("#kreirajSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+		            	$("#kreirajMsg").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 		            	console.log(JSON.parse(err.responseText).userMessage);
 		            }
 		        });
@@ -268,6 +268,7 @@ function checkIntervals(sign,val){
 			if(sign === "BMI"){
 				var href=$('#mapLink').attr('href');
 				$('#mapLink').attr('href',href+"?"+$.param({"keyword":sgn.status.toLowerCase()}));
+				
 			}
 			else if(sgn.class === 'danger' && sign != "BMI"){
 				var href=$('#mapLink').attr('href');
@@ -383,6 +384,24 @@ $(document).ready(function() {
 		}
 		 $btn.button('reset')
   })
+  
+  $('#clear').click(function(){
+  	$('#kreirajIme').val('');
+  	$('#kreirajPriimek').val('');
+  	$('#kreirajDatumRojstva').val('');
+  	$('#kreirajMsg').html('');
+  });
+  
+  $('#collapse').click(function(){
+  	$('#patientCreator').toggle(700);
+  	$('#collapse').toggleClass('glyphicon-minus');
+  	$('#collapse').toggleClass('glyphicon-plus');
+  });
+   $('#collapseMeasurement').click(function(){
+  	$('#recordCreator').toggle(700);
+  	$('#collapseMeasurement').toggleClass('glyphicon-minus');
+  	$('#collapseMeasurement').toggleClass('glyphicon-plus');
+  });
 });
 /*
 
