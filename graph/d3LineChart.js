@@ -17,7 +17,7 @@ var svg = null,
 	dataLinesGroup = null;
 
 function draw(data) {
-	console.log("Sizes:"+w+" "+h);
+	console.log("SizesD:"+w+" "+h);
 	var margin = 40;
 	var max = d3.max(data, function(d) { return d.value });
 	var min = 0;
