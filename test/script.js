@@ -1,4 +1,4 @@
-
+var dataITM;
 var baseUrl = 'https://rest.ehrscape.com/rest/v1';
 var queryUrl = baseUrl + '/query';
 
@@ -240,10 +240,12 @@ function getITM(ehrId){
 								var h = parseFloat(height[i].height) / 100; //V m
 								var ITM = (parseFloat(weight[i].weight) / Math.pow(h,2)).toFixed(2);
 							 //	$('.BMIs').append("<li>"+ (weight[i].time).substr(0,10)+" "+ITM+"</li>");
-								var d = {year: (weight[i].time).substr(0,4),value: ITM }
-								data[i]= d; 
+								var tm = weight[i].time
+								var date = new Date(tm.substr(0,4),tm.substr(5,7),tm.substr(8,10));
+								var d = {date:date,value: ITM };
+								dataITM[i]= d; 
 							}
-							//drawITMChart(data);
+							
 						},
 						error: function(err) {
 							$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
@@ -318,7 +320,7 @@ function checkVitals(){
 		$('#results').text(messages['obese']);
 	}
 }
-
+/*
 function drawITMChart(data){
 	 $('#ITMchart').html('');
 	  new Morris.Line({
@@ -337,7 +339,7 @@ function drawITMChart(data){
 	  });
 	 
 							
-}
+}*/
 
 function query(ehrID){
 	$.ajaxSetup({
@@ -404,10 +406,11 @@ $(document).ready(function() {
 		h = $('#status_vitals').height();
 		$('#chartWrapper').height(h);
 		console.log("Sizes:"+w+" "+h);
-		setTimeout(	draw(),100);
+		draw(dataITM);
 	});
 	$('#patients').change(function() {
 		$('#mapLink').attr('href','../places/places.html');
+		
 		if($(this).val() == "")
 			$('.personalInfo').slideUp(1500);
 		else{
@@ -417,8 +420,7 @@ $(document).ready(function() {
 			w = $('#chartWrapper').width();
 			h = $('#status_vitals').height();
 			$('#chartWrapper').height(h);
-			setTimeout(	draw(),100);
-			draw();
+			draw(dataITM);
 		}
 	});
 	

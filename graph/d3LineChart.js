@@ -16,8 +16,7 @@ var svg = null,
 	dataCirclesGroup = null,
 	dataLinesGroup = null;
 
-function draw() {
-	var data = generateData();
+function draw(data) {
 	var margin = 40;
 	var max = d3.max(data, function(d) { return d.value });
 	var min = 0;
