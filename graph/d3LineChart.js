@@ -231,6 +231,6 @@ function generateData() {
 }
 
 draw();
-w = $('#chartWrapper').attr('width');
-h = $('#chartWrapper').attr('height');
+w = d3.select("#chart").style("width");
+h = d3.select("#chart").style("height");
 draw();
