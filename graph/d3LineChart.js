@@ -1,8 +1,8 @@
 /**
  * User: nross
  */
-var w = 600,
-    h = 450;
+w = 600;
+h = 450;
 
 var monthNames = [ "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December" ];
@@ -203,30 +203,4 @@ function draw(data) {
      
 }
 
-function generateData() {
-	var data = [];
-	/*var i = Math.max(Math.round(Math.random()*100), 3);
-
-	while (i--) {
-		var date = new Date();
-		date.setDate(date.getDate() - i);
-		date.setHours(0, 0, 0, 0);
-		data.push({'value' : Math.round(Math.random()*1200), 'date' : date});
-	}*/
-	var date = new Date();
-	date.setDate(date.getDate() + 1);
-	date.setHours(0, 0, 0, 0);
-	
-	var date2 = new Date();
-	date2.setDate(date2.getDate() + 5);
-	date2.setHours(0, 0, 0, 0);
-	
-	var date3 = new Date();
-	console.log(date3 + date3.toDateString());
-	date3.setDate(date3.getDate() + 10);
-	date3.setHours(0, 0, 0, 0);
-	data=[{'value':24,'date':date},{'value':20.2,'date':date2},{'value':22.4,'date':date3}];
-	console.log("kreiram podatke");
-	return data;
-}
 
