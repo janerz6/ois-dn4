@@ -3,7 +3,7 @@
  */
 var w = 600,
     h = 450;
-alert(w);
+
 var monthNames = [ "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December" ];
 
@@ -17,6 +17,7 @@ var svg = null,
 	dataLinesGroup = null;
 
 function draw() {
+	alert(w);
 	var data = generateData();
 	var margin = 40;
 	var max = d3.max(data, function(d) { return d.value });
