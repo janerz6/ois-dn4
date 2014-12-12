@@ -403,6 +403,7 @@ $(document).ready(function() {
 		w = $('#chartWrapper').width();
 		$('#chartWrapper').height($('#status_vitals').height());
 		h=$('#chartWrapper').height();
+		console.log("Size:"+w+" "+h);
 		draw();
 	});
 	$('#patients').change(function() {
@@ -416,6 +417,7 @@ $(document).ready(function() {
 			w = $('#chartWrapper').width();
 			$('#chartWrapper').height($('#status_vitals').height());
 			h=$('#chartWrapper').height();
+			console.log("Size:"+w+" "+h);
 			draw();
 		}
 	});
