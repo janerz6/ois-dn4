@@ -399,8 +399,8 @@ function dodajVitalne(){
 }
 
 $(document).ready(function() {
-	$(window).resize(function(){
-		w = $('#chartWrapper').width()-80;
+	$(window).on('resize',function(){
+		w = $('#chartWrapper').width();
 		draw();
 	});
 	$('#patients').change(function() {
@@ -411,7 +411,7 @@ $(document).ready(function() {
 			preberiEHRodBolnikaData($(this).val());
 			query($(this).val());
 			$('.personalInfo').slideDown(1500);
-			w = $('#chartWrapper').width()-80;
+			w = $('#chartWrapper').width();
 			draw();
 		}
 	});
