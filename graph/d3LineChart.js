@@ -1,8 +1,8 @@
 /**
  * User: nross
  */
-var w = 600,
-    h = 450;
+var w = "100%",
+    h = "100%";
 alert(w);
 var monthNames = [ "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December" ];
