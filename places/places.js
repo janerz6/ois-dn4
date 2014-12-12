@@ -66,19 +66,7 @@ function callback(results, status, pagination) {
     }
   }
 }
-/*
-var request = {
-  placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4'
-};
 
-service = new google.maps.places.PlacesService(map);
-service.getDetails(request, callback);
-
-function callback(place, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    createMarker(place);
-  }
-}*/
 function createMarkers(places) {
   var bounds = new google.maps.LatLngBounds();
 

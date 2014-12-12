@@ -128,11 +128,13 @@ function kreirajEHRzaBolnika() {
 }
 
 
-function dodajMeritveVitalnihZnakovData(ehrId,measures) {
+function dodajMeritveVitalnihZnakovData(ehrId,measures,report) {
 	sessionId = getSessionId();
-
-	if (!ehrId || ehrId.trim().length == 0) {
+	console.log("dodajam vitalne znake...");
+	if ((!ehrId || ehrId.trim().length == 0) && report) {
 		console.log('Prosim vnesite zahtevane podatke!');
+		if(report)
+			$("#kreirajMsgVitalni").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevane podatke!</span>");
 	} else {
 		for (var i=0; i < measures.length; i++){
 			var datumInUra = measures[i].date;
@@ -176,11 +178,12 @@ function dodajMeritveVitalnihZnakovData(ehrId,measures) {
 			    success: function (res) {
 			    	console.log(res.meta.href);
 			    	console.log("Uspešno.");
-			        //$("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-success fade-in'>" + res.meta.href + ".</span>");
+			        $("#kreirajMsgVitalni").html("<span class='obvestilo label label-success fade-in'>" + "Uspešno dodano" + ".</span>");
 			        //return true;
 			    },
 			    error: function(err) {
-			    	$("#dodajMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
+			    	if(report)
+			    		$("#kreirajMsgVitalni").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 					console.log(JSON.parse(err.responseText).userMessage);
 					//return false;
 			    }
@@ -259,6 +262,7 @@ function getITM(ehrId){
 
 function checkIntervals(sign,val){
 	console.log("nastavljam "+sign+" "+val);
+	var status="normal";
 	var link='../places/places.html';
 	for(var i=0;i < jsonData[sign].length; i++ ){
 		var sgn=jsonData[sign][i];
@@ -268,14 +272,13 @@ function checkIntervals(sign,val){
 			if(sign === "BMI"){
 				var href=$('#mapLink').attr('href');
 				$('#mapLink').attr('href',href+"?"+$.param({"keyword":sgn.status.toLowerCase()}));
-				
 			}
 			else if(sgn.class === 'danger' && sign != "BMI"){
 				var href=$('#mapLink').attr('href');
 				$('#mapLink').attr('href',href+	"&"+$.param({"status":"emergency"}));
 			}
 			
-			console.log("Nastavil "+sign);
+			//console.log("Nastavil "+sign);
 			break;
 		}
 	}
@@ -296,6 +299,24 @@ function checkVitals(){
 	checkIntervals("Diastolic",dia);
 	checkIntervals("Temperature",temp);
 	checkIntervals("Oximetry",ox);
+	$('#mapLink').show();
+	var url = $('#mapLink').attr('href');
+	if(url.match('status=emergency') != null ){
+		$('#results').text(messages['emergency']);
+	}
+	else if(url.match('keyword=normal') != null){
+		$('#results').text(messages['normal']);
+		$('#mapLink').hide();
+	}
+	else if(url.match('keyword=underweight') != null){
+		$('#results').text(messages['underweight']);
+	}
+	else if(url.match('keyword=overweight') != null){
+		$('#results').text(messages['overweight']);
+	}
+	else if(url.match('keyword=obese') != null){
+		$('#results').text(messages['obese']);
+	}
 }
 
 function drawITMChart(data){
@@ -342,7 +363,7 @@ function query(ehrID){
 	"  OBSERVATION ox[openEHR-EHR-OBSERVATION.indirect_oximetry.v1])"+
 	" order by time desc"+
 	" limit 1";
-	console.log(aql);
+	//console.log(aql);
 	$.ajax({
 	    url: baseUrl + "/query?" + $.param({"aql": aql}),
 	    type: 'GET',
@@ -362,9 +383,22 @@ function query(ehrID){
 	    }
 	});
 }
+function dodajVitalne(){
+	var measurer = ($('#merilecIsti').is(":checked")) ? $( "#selectToAdd option:selected" ).text():$("#kreirajMerilec").val();
+	var date = new Date();
+	var dateString = ((date.getYear()+1900)+"-"+ (date.getMonth()+1)+ "-"+date.getDate());
+  	if(!$('#kreirajTeza').val() || !$('#kreirajVisina').val() || !$('#kreirajTemperatura').val() || !$('#kreirajSystolicni').val() || !$('#kreirajDiastolicni').val() || !$('#kreirajKisik').val() || !measurer){
+  			$("#kreirajMsgVitalni").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevane podatke!</span>");
+  	}
+  	else{
+		var measures = [{date:dateString,weight: $('#kreirajTeza').val(),height: $('#kreirajVisina').val(),temp: $('#kreirajTemperatura').val(),sistolic: $('#kreirajSystolicni').val()
+		,diastolic:$('#kreirajDiastolicni').val(),oxigen:$('#kreirajKisik').val(),measurer: measurer}];
+		
+		dodajMeritveVitalnihZnakovData($( "#selectToAdd option:selected" ).val(),measures,true);
+  	}
+}
 
 $(document).ready(function() {
-	
 	$('#patients').change(function() {
 		$('#mapLink').attr('href','../places/places.html');
 		if($(this).val() == "")
@@ -393,7 +427,7 @@ $(document).ready(function() {
   });
   
   $('#collapse').click(function(){
-  	$('#patientCreator').toggle(700);
+  	$('#pacientCreator').toggle(700);
   	$('#collapse').toggleClass('glyphicon-minus');
   	$('#collapse').toggleClass('glyphicon-plus');
   });
@@ -410,14 +444,36 @@ $(document).ready(function() {
   	$('#kreirajDiastolicni').val('');
   	$('#kreirajKisik').val('');
   	$('#kreirajMerilec').val('');
-  	$('#kreirajMsg').html('');
+  	$('#kreirajMsgVitalni').html('');
   });
+  $('#selectToAdd').focus(function(){
+  	$('#selectToAdd').html($('#patients').html());
+  });
+  $('#merilecIsti').change(function(){
+  	if(this.checked)
+  		$('#kreirajMerilec').prop('disabled', true);
+  	else
+  		$('#kreirajMerilec').prop('disabled', false);
+  });
+  $('#dodajMeritev').click(function dodajMeritev(){
+  	dodajVitalne();
+	});
+	$('#selectToAdd').change(function(){
+		if($('#selectToAdd').find(':selected').val() === ''){
+			$('#recordCreator').hide(700);
+		}
+		else{
+			$('#recordCreator').show(700);
+		}
+	});	
 });
+
 /*
 
 https://developers.google.com/maps/documentation/javascript/places?csw=1#TextSearchRequests
 https://developers.google.com/maps/documentation/javascript/examples/place-search-pagination
 http://morrisjs.github.io/morris.js/
+http://bl.ocks.org/mccannf/1629644#jquery.tipsy.js
 
 Vir podatkov:
 http://www.heart.org/HEARTORG/Conditions/HighBloodPressure/AboutHighBloodPressure/Understanding-Blood-Pressure-Readings_UCM_301764_Article.jsp#
