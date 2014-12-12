@@ -229,17 +229,5 @@ function generateData() {
 	console.log("kreiram podatke");
 	return data;
 }
-d3.select(window).on('resize', resize); 
-
-function resize() {
-    // update width
-    w = parseInt(d3.select('#chart').style('width'), 10);
-    w = w - 40 - 40;
-
-    // reset x range
-    x.range([0, w]);
-
-    // do the actual resize...
-}
 
 draw();

@@ -69,7 +69,9 @@ function callback(results, status, pagination) {
 
 function createMarkers(places) {
   var bounds = new google.maps.LatLngBounds();
-
+  if(places.length == 0)
+     placesList.innerHTML += '<li>No results found</li>';
+  
   for (var i = 0,place; place = places[i]; i++) {
     var image = {
       url: place.icon,
