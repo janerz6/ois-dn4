@@ -243,7 +243,7 @@ function getITM(ehrId){
 								var d = {year: (weight[i].time).substr(0,4),value: ITM }
 								data[i]= d; 
 							}
-							drawITMChart(data);
+							//drawITMChart(data);
 						},
 						error: function(err) {
 							$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
