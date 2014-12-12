@@ -1,7 +1,7 @@
 /**
  * User: nross
  */
-var w = 900,
+var w = parseInt(d3.select('#chart').style('width'), 10) - 40 - 40,
     h = 450;
 
 var monthNames = [ "January", "February", "March", "April", "May", "June",
@@ -199,7 +199,7 @@ function draw() {
           return 'Date: ' + pDate.getDate() + " " + monthNames[pDate.getMonth()] + " " + pDate.getFullYear() + '<br>Value: ' + d.value; 
         }
       });
-      width = parseInt(d3.select('#chart').style('width'), 10) - margin.left - margin.right;
+     
 }
 
 function generateData() {
