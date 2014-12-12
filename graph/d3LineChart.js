@@ -231,4 +231,5 @@ function generateData() {
 
 draw();
 w = $('#chart').style('width');
+h = $('#chart').style('height');
 draw();
