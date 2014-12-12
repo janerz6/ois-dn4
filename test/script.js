@@ -401,6 +401,7 @@ function dodajVitalne(){
 $(document).ready(function() {
 	$(window).on('resize',function(){
 		w = $('#chartWrapper').width();
+		h = $('#chartWrapper').height();
 		draw();
 	});
 	$('#patients').change(function() {
@@ -412,6 +413,7 @@ $(document).ready(function() {
 			query($(this).val());
 			$('.personalInfo').slideDown(1500);
 			w = $('#chartWrapper').width();
+			h = $('#chartWrapper').height();
 			draw();
 		}
 	});
