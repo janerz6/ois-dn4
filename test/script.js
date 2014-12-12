@@ -401,8 +401,8 @@ function dodajVitalne(){
 $(document).ready(function() {
 	$(window).on('resize',function(){
 		w = $('#chartWrapper').width();
-		h = $('#status_vitals').height();
-		$('#chartWrapper').height(h);
+		$('#chartWrapper').height($('#status_vitals').height());
+		h=$('#chartWrapper').height();
 		draw();
 	});
 	$('#patients').change(function() {
@@ -414,8 +414,8 @@ $(document).ready(function() {
 			query($(this).val());
 			$('.personalInfo').slideDown(1500);
 			w = $('#chartWrapper').width();
-			h = $('#status_vitals').height();
-			$('#chartWrapper').height(h);
+			$('#chartWrapper').height($('#status_vitals').height());
+			h=$('#chartWrapper').height();
 			draw();
 		}
 	});
