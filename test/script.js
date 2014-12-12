@@ -403,8 +403,8 @@ $(document).ready(function() {
 		w = $('#chartWrapper').width();
 		h = $('#status_vitals').height();
 		$('#chartWrapper').height(h);
-		console.log("Sizes:"+w+" "+h)
-		draw();
+		console.log("Sizes:"+w+" "+h);
+		setTimeout(	draw(),100);
 	});
 	$('#patients').change(function() {
 		$('#mapLink').attr('href','../places/places.html');
@@ -417,6 +417,7 @@ $(document).ready(function() {
 			w = $('#chartWrapper').width();
 			h = $('#status_vitals').height();
 			$('#chartWrapper').height(h);
+			setTimeout(	draw(),100);
 			draw();
 		}
 	});
