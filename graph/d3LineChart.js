@@ -1,8 +1,8 @@
 /**
  * User: nross
  */
-var w = "100%",
-    h = "100%";
+var w = 600,
+    h = 450;
 alert(w);
 var monthNames = [ "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December" ];
@@ -33,8 +33,8 @@ function draw() {
 	if (svg.empty()) {
 		svg = d3.select('#chart')
 			.append('svg:svg')
-				.attr('width', w)
-				.attr('height', h)
+				.attr('width', "100%")
+				.attr('height', "100%")
 				.attr('class', 'viz')
 			.append('svg:g')
 				.attr('transform', 'translate(' + margin + ',' + margin + ')');
@@ -229,6 +229,4 @@ function generateData() {
 	return data;
 }
 
-
-d3.select('#button').on('click', draw);
 draw();
