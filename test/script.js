@@ -402,11 +402,13 @@ function dodajVitalne(){
 
 $(document).ready(function() {
 	$(window).on('resize',function(){
+		if($('.personalInfo').attr('display') != 'none'){
 		w = $('#chartWrapper').width();
 		h = $('#status_vitals').height();
 		$('#chartWrapper').height(h);
 		console.log("Sizes:"+w+" "+h);
 		draw(dataITM);
+		}
 	});
 	$('#patients').change(function() {
 		$('#mapLink').attr('href','../places/places.html');
