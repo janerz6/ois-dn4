@@ -231,5 +231,3 @@ function generateData() {
 }
 
 draw();
-w = parseInt(d3.select('#chart').style('width'), 10) - 40 - 40;
-draw();
