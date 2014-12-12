@@ -26,7 +26,7 @@ function draw() {
 	var countY = parseInt(h/100)+1;
 	var pointRadius = 4;
 	x = d3.time.scale().range([0, w - margin * 2]).domain([data[0].date, data[data.length - 1].date]);
-	var y = d3.scale.linear().range([h - margin * 2, 0]).domain([min, max]);
+	y = d3.scale.linear().range([h - margin * 2, 0]).domain([min, max]);
 
 	var xAxis = d3.svg.axis().scale(x).tickSize(h - margin * 2).tickPadding(10).ticks(countX);
 	var yAxis = d3.svg.axis().scale(y).orient('left').tickSize(-w + margin * 2).tickPadding(10).ticks(countY);
