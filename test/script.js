@@ -399,7 +399,10 @@ function dodajVitalne(){
 }
 
 $(document).ready(function() {
-	
+	$(window).resize(function(){
+		w = $('#chartWrapper').width()-80;
+		draw();
+	});
 	$('#patients').change(function() {
 		$('#mapLink').attr('href','../places/places.html');
 		if($(this).val() == "")
@@ -408,7 +411,7 @@ $(document).ready(function() {
 			preberiEHRodBolnikaData($(this).val());
 			query($(this).val());
 			$('.personalInfo').slideDown(1500);
-			w = $('#chartWrapper').width();
+			w = $('#chartWrapper').width()-80;
 			draw();
 		}
 	});
