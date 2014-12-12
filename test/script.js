@@ -245,7 +245,7 @@ function getITM(ehrId){
 								var d = {date: date,value: ITM };
 								dataITM[i] = d; 
 							}
-							
+							draw(dataITM);
 						},
 						error: function(err) {
 							$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
@@ -422,7 +422,6 @@ $(document).ready(function() {
 			w = $('#chartWrapper').width();
 			h = $('#status_vitals').height();
 			$('#chartWrapper').height(h);
-			draw(dataITM);
 		}
 	});
 	
