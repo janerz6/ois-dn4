@@ -227,24 +227,6 @@ function generateData() {
 	console.log("kreiram podatke");
 	return data;
 }
-var margin = {top: 30, right: 10, bottom: 30, left: 10}
-  , width = parseInt(d3.select('#chart').style('width'), 10)
-  , width = width - margin.left - margin.right
-  , barHeight = 20
-  , percent = d3.format('%');
 
-// scales and axes
-var x = d3.scale.linear()
-    .range([0, width])
-    .domain([0, .4]); // hard-coding this because I know the data
-
-// ordinal scales are easier for uniform bar heights
-// I'll set domain and rangeBands after data loads
-var y = d3.scale.ordinal();
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .tickFormat(percent);
-    
 d3.select('#button').on('click', draw);
 draw();
