@@ -229,5 +229,5 @@ function generateData() {
 	console.log("kreiram podatke");
 	return data;
 }
-
+w = $('#chartWrapper').width();
 draw();
