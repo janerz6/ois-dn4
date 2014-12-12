@@ -397,13 +397,6 @@ function dodajVitalne(){
 		dodajMeritveVitalnihZnakovData($( "#selectToAdd option:selected" ).val(),measures,true);
   	}
 }
-function updateWindow(){
-    x = w.innerWidth || e.clientWidth || g.clientWidth;
-    y = w.innerHeight|| e.clientHeight|| g.clientHeight;
-
-    svg.attr("width", x).attr("height", y);
-}
-window.onresize = updateWindow;
 
 $(document).ready(function() {
 	
