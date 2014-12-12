@@ -230,6 +230,6 @@ function generateData() {
 }
 
 draw();
-w = $('#chartWrapper').width();
-h = $('#chartWrapper').height();
+w = $('#chartWrapper').style('width');
+h = $('#chartWrapper').style('height');
 draw();
