@@ -1,7 +1,7 @@
 /**
  * User: nross
  */
-var w = parseInt(d3.select('#chart').style('width'), 10) - 40 - 40,
+var w = parseInt(d3.select('#chartWrapper').style('width'), 10) - 40 - 40,
     h = 450;
 alert(w);
 var monthNames = [ "January", "February", "March", "April", "May", "June",
