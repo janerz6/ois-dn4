@@ -22,11 +22,12 @@ function draw() {
 	var margin = 40;
 	var max = d3.max(data, function(d) { return d.value });
 	var min = 0;
+	var count = parseInt(w/100)+1;
 	var pointRadius = 4;
 	x = d3.time.scale().range([0, w - margin * 2]).domain([data[0].date, data[data.length - 1].date]);
 	var y = d3.scale.linear().range([h - margin * 2, 0]).domain([min, max]);
 
-	var xAxis = d3.svg.axis().scale(x).tickSize(h - margin * 2).tickPadding(10).ticks(2);
+	var xAxis = d3.svg.axis().scale(x).tickSize(h - margin * 2).tickPadding(10).ticks(count);
 	var yAxis = d3.svg.axis().scale(y).orient('left').tickSize(-w + margin * 2).tickPadding(10);
 	var t = null;
 
