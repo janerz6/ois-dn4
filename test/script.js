@@ -1,4 +1,4 @@
-var dataITM;
+var dataITM = [];
 var baseUrl = 'https://rest.ehrscape.com/rest/v1';
 var queryUrl = baseUrl + '/query';
 
@@ -243,9 +243,9 @@ function getITM(ehrId){
 								var tm = weight[i].time
 								var date = new Date(tm.substr(0,4),tm.substr(5,7),tm.substr(8,10));
 								var d = {date:date,value: ITM };
-								dataITM[i]= d; 
+								dataITM[i] = d; 
 							}
-							draw(dataITM);
+							
 						},
 						error: function(err) {
 							$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
@@ -422,6 +422,7 @@ $(document).ready(function() {
 			w = $('#chartWrapper').width();
 			h = $('#status_vitals').height();
 			$('#chartWrapper').height(h);
+			draw(dataITM);
 		}
 	});
 	
