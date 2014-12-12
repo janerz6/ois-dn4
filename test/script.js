@@ -406,7 +406,7 @@ function updateWindow(){
 window.onresize = updateWindow;
 
 $(document).ready(function() {
-	$('#chart').setSize();
+	
 	$('#patients').change(function() {
 		$('#mapLink').attr('href','../places/places.html');
 		if($(this).val() == "")
