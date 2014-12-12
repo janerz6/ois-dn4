@@ -231,6 +231,5 @@ function generateData() {
 }
 
 draw();
-w = d3.select("#chartWrapper").style("width");
-h = d3.select("#chartWrapper").style("height");
+w = parseInt(d3.select('#chart').style('width'), 10) - 40 - 40;
 draw();
