@@ -400,10 +400,6 @@ function dodajVitalne(){
 
 $(document).ready(function() {
 	
-	$('#chart').width($('#chartWrapper').width());
-	$(window).resize(function(){
-		$('#chart').width($('#chartWrapper').width());
-	});
 	$('#patients').change(function() {
 		$('#mapLink').attr('href','../places/places.html');
 		if($(this).val() == "")
