@@ -422,7 +422,7 @@ $(document).ready(function() {
 			w = $('#chartWrapper').width();
 			h = $('#status_vitals').height();
 			$('#chartWrapper').height(h);
-			draw(dataITM);
+			setTimeount(draw(dataITM),100);
 		}
 	});
 	
