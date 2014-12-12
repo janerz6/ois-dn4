@@ -199,6 +199,7 @@ function draw() {
           return 'Date: ' + pDate.getDate() + " " + monthNames[pDate.getMonth()] + " " + pDate.getFullYear() + '<br>Value: ' + d.value; 
         }
       });
+      width = parseInt(d3.select('#chart').style('width'), 10) - margin.left - margin.right;
 }
 
 function generateData() {
@@ -227,7 +228,7 @@ function generateData() {
 	console.log("kreiram podatke");
 	return data;
 }
-margin = {top: 10, right: 10, bottom: 10, left: 10}
-width = parseInt(d3.select('#chart').style('width'), 10) - margin.left - margin.right;
+
+
 d3.select('#button').on('click', draw);
 draw();
