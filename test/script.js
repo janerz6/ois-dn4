@@ -408,6 +408,8 @@ $(document).ready(function() {
 			preberiEHRodBolnikaData($(this).val());
 			query($(this).val());
 			$('.personalInfo').slideDown(1500);
+			w = $('#chartWrapper').width();
+			draw();
 		}
 	});
 	
