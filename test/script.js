@@ -403,6 +403,7 @@ $(document).ready(function() {
 		w = $('#chartWrapper').width();
 		h = $('#status_vitals').height();
 		$('#chartWrapper').height(h);
+		console.log("Sizes:"+w+" "+h)
 		draw();
 	});
 	$('#patients').change(function() {
