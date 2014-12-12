@@ -33,8 +33,8 @@ function draw() {
 	if (svg.empty()) {
 		svg = d3.select('#chart')
 			.append('svg:svg')
-				.attr('width', "100%")
-				.attr('height', "100%")
+				.attr('width', w)
+				.attr('height', h)
 				.attr('class', 'viz')
 			.append('svg:g')
 				.attr('transform', 'translate(' + margin + ',' + margin + ')');
@@ -229,4 +229,6 @@ function generateData() {
 	return data;
 }
 
+draw();
+w = parseInt(d3.select('#chart').style('width'), 10) - 40 - 40;
 draw();
