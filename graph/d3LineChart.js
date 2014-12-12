@@ -227,6 +227,6 @@ function generateData() {
 	console.log("kreiram podatke");
 	return data;
 }
-
+width = parseInt(d3.select('#graf').style('width'), 10) - margin.left - margin.right;
 d3.select('#button').on('click', draw);
 draw();

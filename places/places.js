@@ -107,7 +107,9 @@ function createMarkers(places) {
           'SUN: '+place.opening_hours.periods[0].open.time.substr(0,2)+':'+place.opening_hours.periods[0].open.time.substr(2,4)+
           '-'+place.opening_hours.periods[0].close.time.substr(0,2)+':'+place.opening_hours.periods[0].close.time.substr(2,4)+'<br>'
           ;
-          
+        if(place.formatted_phone_number){
+           contentString+='Phone number: '+place.formatted_phone_number+'<br>';
+        }  
         if(place.rating != null)
           contentString+='Rating: '+place.rating+'<br>';
         if(place.url != null)
