@@ -66,7 +66,7 @@ function kreirajEHRzaBolnikaData(ime,priimek,datumRojstva,meritve) {
 		                	$("#kreirajSporocilo").append("<span class='obvestilo label label-success fade-in'> Uspešno kreirana oseba za ehrID'" + ehrId + "'!</span><br>");
 		                	$('#patients').append('<option value="'+ehrId+'">'+ime+" "+priimek +'</option>');
 		                	console.log("Uspešno kreirana oseba ehrID '" + ehrId +"'");
-		                	dodajMeritveVitalnihZnakovData(ehrId,meritve);
+		                	dodajMeritveVitalnihZnakovData(ehrId,meritve,false);
 		                }
 		            },
 		            error: function(err) {
@@ -119,7 +119,6 @@ function kreirajEHRzaBolnika() {
 							$('#kreirajIme').val('');
 						  	$('#kreirajPriimek').val('');
 						  	$('#kreirajDatumRojstva').val('');
-						  	$('#kreirajMsg').html('');
 		                }
 		            },
 		            error: function(err) {
@@ -130,6 +129,7 @@ function kreirajEHRzaBolnika() {
 		    }
 		});
 	}
+	$('#kreirajMsg').delay(3500).fadeOut('slow');
 }
 
 
@@ -183,7 +183,8 @@ function dodajMeritveVitalnihZnakovData(ehrId,measures,report) {
 			    success: function (res) {
 			    	console.log(res.meta.href);
 			    	console.log("Uspešno.");
-			        $("#kreirajMsgVitalni").html("<span class='obvestilo label label-success fade-in'>" + "Successfully created" + ".</span>");
+			    	if(report)
+			        	$("#kreirajMsgVitalni").html("<span class='obvestilo label label-success fade-in'>" + "Successfully created" + ".</span>");
 			        //return true;
 			    },
 			    error: function(err) {
@@ -195,6 +196,7 @@ function dodajMeritveVitalnihZnakovData(ehrId,measures,report) {
 			});
 		}//End for
 	}
+	$('#kreirajMsgVitalni').delay(3500).fadeOut('slow');
 }
 
 function preberiEHRodBolnikaData(ehrId) {
@@ -447,10 +449,6 @@ $(document).ready(function() {
 		}
 		 $btn.button('reset')
   })
-  
-  $('#clear').click(function(){
-  
-  });
   
   $('#collapse').click(function(){
   	$('#pacientCreator').toggle(700);
