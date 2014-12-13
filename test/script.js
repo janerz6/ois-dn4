@@ -125,6 +125,11 @@ function kreirajEHRzaBolnika() {
 		    }
 		});
 	}
+	//Clear fields
+	$('#kreirajIme').val('');
+  	$('#kreirajPriimek').val('');
+  	$('#kreirajDatumRojstva').val('');
+  	$('#kreirajMsg').html('');
 }
 
 
@@ -398,6 +403,15 @@ function dodajVitalne(){
 		
 		dodajMeritveVitalnihZnakovData($( "#selectToAdd option:selected" ).val(),measures,true);
   	}
+  	//Clear fields
+  	$('#kreirajVisina').val('');
+  	$('#kreirajTeza').val('');
+  	$('#kreirajTemperatura').val('');
+  	$('#kreirajSystolicni').val('');
+  	$('#kreirajDiastolicni').val('');
+  	$('#kreirajKisik').val('');
+  	$('#kreirajMerilec').val('');
+  	$('#kreirajMsgVitalni').html('');
 }
 
 $(document).ready(function() {
@@ -435,10 +449,7 @@ $(document).ready(function() {
   })
   
   $('#clear').click(function(){
-  	$('#kreirajIme').val('');
-  	$('#kreirajPriimek').val('');
-  	$('#kreirajDatumRojstva').val('');
-  	$('#kreirajMsg').html('');
+  
   });
   
   $('#collapse').click(function(){
@@ -451,16 +462,7 @@ $(document).ready(function() {
   	$('#collapseMeasurement').toggleClass('glyphicon-minus');
   	$('#collapseMeasurement').toggleClass('glyphicon-plus');
   });
-  $('#clearMeasurement').click(function(){
-  	$('#kreirajVisina').val('');
-  	$('#kreirajTeza').val('');
-  	$('#kreirajTemperatura').val('');
-  	$('#kreirajSystolicni').val('');
-  	$('#kreirajDiastolicni').val('');
-  	$('#kreirajKisik').val('');
-  	$('#kreirajMerilec').val('');
-  	$('#kreirajMsgVitalni').html('');
-  });
+  
   $('#selectToAdd').focus(function(){
   	$('#selectToAdd').html($('#patients').html());
   });
