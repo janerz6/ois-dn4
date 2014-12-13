@@ -129,7 +129,8 @@ function kreirajEHRzaBolnika() {
 		    }
 		});
 	}
-	//$('#kreirajMsg').delay(3500).fadeOut('slow');
+	$('#kreirajMsg').show();
+	$('#kreirajMsg').delay(3500).fadeOut('slow');
 }
 
 
@@ -196,7 +197,8 @@ function dodajMeritveVitalnihZnakovData(ehrId,measures,report) {
 			});
 		}//End for
 	}
-	//$('#kreirajMsgVitalni').delay(3500).fadeOut('slow');
+	$('#kreirajMsgVitalni').show();
+	$('#kreirajMsgVitalni').delay(3500).fadeOut('slow');
 }
 
 function preberiEHRodBolnikaData(ehrId) {
