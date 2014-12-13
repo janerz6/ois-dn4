@@ -122,14 +122,14 @@ function kreirajEHRzaBolnika() {
 		                }
 		            },
 		            error: function(err) {
-		            	$("#kreirajMsg").html("<span class='obvestilo label label-danger fade-in'>Error '" + JSON.parse(err.responseText).userMessage + "'!");
+		            	$("#kreirajMsg").html("<span class='obvestilo label label-danger fade-in'>Error '" + JSON.parse(err.responseText).userMessage + "'!</span>");
 		            	console.log(JSON.parse(err.responseText).userMessage);
 		            }
 		        });
 		    }
 		});
 	}
-	$('#kreirajMsg').delay(3500).fadeOut('slow');
+	//$('#kreirajMsg').delay(3500).fadeOut('slow');
 }
 
 
@@ -196,7 +196,7 @@ function dodajMeritveVitalnihZnakovData(ehrId,measures,report) {
 			});
 		}//End for
 	}
-	$('#kreirajMsgVitalni').delay(3500).fadeOut('slow');
+	//$('#kreirajMsgVitalni').delay(3500).fadeOut('slow');
 }
 
 function preberiEHRodBolnikaData(ehrId) {
