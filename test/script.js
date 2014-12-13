@@ -413,7 +413,6 @@ function dodajVitalne(){
   	$('#kreirajDiastolicni').val('');
   	$('#kreirajKisik').val('');
   	$('#kreirajMerilec').val('');
-  	$('#kreirajMsgVitalni').html('');
 }
 
 $(document).ready(function() {
