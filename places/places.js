@@ -1,7 +1,7 @@
 var map, placesList,crd,selectedInfo=-1,id;
 var markers = {};
 var requests = {};
-
+var rad = 5000;
 
 
 function success(pos) {
@@ -19,13 +19,13 @@ function success(pos) {
     zoom: 10
   });
   
-  requests['emergency'] = {location: pyrmont,radius: 5000,keyword:'emergency', types: ['hospital']};
-  requests['overweight'] = {location: pyrmont,radius: 5000, types: ['gym','park']};
-  requests['obese'] = {location: pyrmont,radius: 5000, types: ['gym','hospital']};
-  requests['underweight'] = {location: pyrmont,radius: 5000, types: ['hospital','health','food']}; 
+  requests['emergency'] = {location: pyrmont,radius: rad,keyword:'emergency', types: ['hospital']};
+  requests['overweight'] = {location: pyrmont,radius: rad, types: ['gym','park']};
+  requests['obese'] = {location: pyrmont,radius: rad, types: ['gym','hospital']};
+  requests['underweight'] = {location: pyrmont,radius: rad, types: ['hospital','health','food']}; 
   var request = requests[getURLParameter('keyword')];
   if(getURLParameter('status') === "emergency")
-    request={location: pyrmont,radius: 5000, keyword:"emergency", types: ['hospital']}; 
+    request={location: pyrmont,radius: rad, keyword:"emergency", types: ['hospital']}; 
   
   placesList = document.getElementById('places');
 
@@ -60,8 +60,14 @@ function callback(results, status, pagination) {
 
       google.maps.event.addDomListenerOnce(moreButton, 'click',
           function() {
-        moreButton.disabled = true;
-        pagination.nextPage();
+        if($('#places').find('div').length == 0){
+          rad=rad*2;
+          initialize();
+        }    
+        else {
+          moreButton.disabled = true;
+          pagination.nextPage();
+        }
       });
     }
   }
