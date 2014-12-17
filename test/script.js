@@ -245,7 +245,7 @@ function getITM(ehrId){
 						success: function (weight) {
 							$('.BMIs').html("");
 							dataITM = [];
-							for(var i = 0; i < weight.length; i++){
+							for(var i = weight.length-1; i >= 0 ; i--){
 								var h = parseFloat(height[i].height) / 100; //V m
 								var ITM = (parseFloat(weight[i].weight) / Math.pow(h,2)).toFixed(2);
 							 //	$('.BMIs').append("<li>"+ (weight[i].time).substr(0,10)+" "+ITM+"</li>");
