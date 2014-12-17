@@ -251,8 +251,7 @@ function getITM(ehrId){
 							 //	$('.BMIs').append("<li>"+ (weight[i].time).substr(0,10)+" "+ITM+"</li>");
 								var tm = weight[i].time
 								var date = new Date(tm.substr(0,4),tm.substr(5,2)-1,tm.substr(8,2));
-								var d = {date: date,value: ITM };
-								dataITM[i] = d; 
+								dataITM.push({date: date,value: ITM }); 
 							}
 							draw(dataITM);
 						},
