@@ -476,9 +476,13 @@ $(document).ready(function() {
 	$('#selectToAdd').change(function(){
 		if($('#selectToAdd').find(':selected').val() === ''){
 			$('#recordCreator').hide(700);
+			$('#collapseMeasurement').removeClass('glyphicon-minus');
+  			$('#collapseMeasurement').addClass('glyphicon-plus');
 		}
 		else{
 			$('#recordCreator').show(700);
+			$('#collapseMeasurement').addClass('glyphicon-minus');
+  			$('#collapseMeasurement').removeClass('glyphicon-plus');
 		}
 	});
 	
