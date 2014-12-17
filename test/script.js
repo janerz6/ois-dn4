@@ -421,7 +421,7 @@ $(document).ready(function() {
 	$(window).on('resize',function(){
 		if($('.personalInfo').attr('display') != 'none'){
 		w = $('#chartWrapper').width();
-		h = $('#status_vitals').height()-50;
+		h = $('#status_vitals').height();
 		$('#chartWrapper').height(h);
 		console.log("Sizes:"+w+" "+h);
 		draw(dataITM);
@@ -437,7 +437,7 @@ $(document).ready(function() {
 			query($(this).val());
 			$('.personalInfo').slideDown(1500);
 			w = $('#chartWrapper').width();
-			h = $('#status_vitals').height()-50;
+			h = $('#status_vitals').height();
 			$('#chartWrapper').height(h);
 		}
 	});

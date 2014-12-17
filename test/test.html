@@ -60,6 +60,16 @@
 			#pacientCreator,#recordCreator{
 				display:none;
 			}
+			.table {
+				table-layout:fixed;
+			}
+			
+			.table td {
+			  white-space: nowrap;
+			  overflow: hidden;
+			  text-overflow: ellipsis;
+			
+			}
 	     </style>
     </head>
     <body>
@@ -155,7 +165,7 @@
 						<div class="panel panel-default">
 						<div class="panel-heading"><b>Vital signs state</b></div>
 						<div class="panel-body" id="status_vitals">
-							<table style="max-width:100%"class="table table-condensed">
+							<table style="max-width:100%" class="table table-condensed">
 								<tr><th>Vital sign</th><th>Last measuremet's date</th><th>Last measurement</th><th>Status</th></tr>
 								<tr class="warning"><td>ITM</td><td class="last_date">20.6.2010</td><td id="BMI_last">22</td><td id="BMI_status">OK</td></tr>
 								<tr class="danger"><td>Temperature</td><td class="last_date"></td><td id="temperature_last"></td><td id="Temperature_status"></td></tr>
