@@ -38,45 +38,42 @@ function getSessionId() {
 
 function kreirajEHRzaBolnikaData(ime,priimek,datumRojstva,meritve) {
 	sessionId = getSessionId();
+
+	$.ajaxSetup({
+	    headers: {"Ehr-Session": sessionId}
+	});
+	$.ajax({
+	    url: baseUrl + "/ehr",
+	    type: 'POST',
+	    success: function (data) {
+	        var ehrId = data.ehrId;
+	        var partyData = {
+	            firstNames: ime,
+	            lastNames: priimek,
+	            dateOfBirth: datumRojstva,
+	            partyAdditionalInfo: [{key: "ehrId", value: ehrId}]
+	        };
+	        $.ajax({
+	            url: baseUrl + "/demographics/party",
+	            type: 'POST',
+	            contentType: 'application/json',
+	            data: JSON.stringify(partyData),
+	            success: function (party) {
+	                if (party.action == 'CREATE') {
+	                	$("#kreirajSporocilo").append("<span class='obvestilo label label-success fade-in'> Uspešno kreirana oseba za ehrID'" + ehrId + "'!</span><br>");
+	                	$('#patients').append('<option value="'+ehrId+'">'+ime+" "+priimek +'</option>');
+	                	console.log("Uspešno kreirana oseba ehrID '" + ehrId +"'");
+	                	dodajMeritveVitalnihZnakovData(ehrId,meritve,false);
+	                }
+	            },
+	            error: function(err) {
+	            	$("#kreirajSporocilo").append("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!</span><br>");
+	            	console.log(JSON.parse(err.responseText).userMessage);
+	            }
+	        });
+	    }
+	});
 	
-	if (!ime || !priimek || !datumRojstva || ime.trim().length == 0 || priimek.trim().length == 0 || datumRojstva.trim().length == 0) {
-		$("#kreirajSporocilo").append("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevane podatke!</span><br>");
-	} else {
-		$.ajaxSetup({
-		    headers: {"Ehr-Session": sessionId}
-		});
-		$.ajax({
-		    url: baseUrl + "/ehr",
-		    type: 'POST',
-		    success: function (data) {
-		        var ehrId = data.ehrId;
-		        var partyData = {
-		            firstNames: ime,
-		            lastNames: priimek,
-		            dateOfBirth: datumRojstva,
-		            partyAdditionalInfo: [{key: "ehrId", value: ehrId}]
-		        };
-		        $.ajax({
-		            url: baseUrl + "/demographics/party",
-		            type: 'POST',
-		            contentType: 'application/json',
-		            data: JSON.stringify(partyData),
-		            success: function (party) {
-		                if (party.action == 'CREATE') {
-		                	$("#kreirajSporocilo").append("<span class='obvestilo label label-success fade-in'> Uspešno kreirana oseba za ehrID'" + ehrId + "'!</span><br>");
-		                	$('#patients').append('<option value="'+ehrId+'">'+ime+" "+priimek +'</option>');
-		                	console.log("Uspešno kreirana oseba ehrID '" + ehrId +"'");
-		                	dodajMeritveVitalnihZnakovData(ehrId,meritve,false);
-		                }
-		            },
-		            error: function(err) {
-		            	$("#kreirajSporocilo").append("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!</span><br>");
-		            	console.log(JSON.parse(err.responseText).userMessage);
-		            }
-		        });
-		    }
-		});
-	}
 }
 
 function kreirajEHRzaBolnika() {
@@ -138,7 +135,7 @@ function dodajMeritveVitalnihZnakovData(ehrId,measures,report) {
 	sessionId = getSessionId();
 	console.log("dodajam vitalne znake...");
 	if ((!ehrId || ehrId.trim().length == 0) && report) {
-		console.log('Prosim vnesite zahtevane podatke!');
+		console.log('Pleese enter required information!');
 		if(report)
 			$("#kreirajMsgVitalni").html("<span class='obvestilo label label-warning fade-in'>Please enter required information!</span>");
 	} else {
@@ -229,45 +226,41 @@ function preberiEHRodBolnikaData(ehrId) {
 }
 function getITM(ehrId){
 	sessionId = getSessionId();
-		if (!ehrId || ehrId.trim().length == 0) {
-		$("#preberiSporocilo").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevan podatek!");
-	} else {
-		$.ajax({
-			url: baseUrl + '/view/'+ehrId+'/height',
-			type: 'GET',
-			headers: {"Ehr-Session": sessionId},
-	    	success: function (height) {
-				console.log("Uspesno prebrano Height.");
-					$.ajax({
-						url: baseUrl + '/view/'+ehrId+'/weight',
-						type: 'GET',
-						headers: {"Ehr-Session": sessionId},
-						success: function (weight) {
-							$('.BMIs').html("");
-							dataITM = [];
-							for(var i = weight.length-1; i >= 0 ; i--){
-								var h = parseFloat(height[i].height) / 100; //V m
-								var ITM = (parseFloat(weight[i].weight) / Math.pow(h,2)).toFixed(2);
-							 //	$('.BMIs').append("<li>"+ (weight[i].time).substr(0,10)+" "+ITM+"</li>");
-								var tm = weight[i].time
-								var date = new Date(tm.substr(0,4),tm.substr(5,2)-1,tm.substr(8,2));
-								dataITM.push({date: date,value: ITM }); 
-							}
-							draw(dataITM);
-						},
-						error: function(err) {
-							$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
-							console.log("Napaka, branje ..."+JSON.parse(err.responseText).userMessage);
+	
+	$.ajax({
+		url: baseUrl + '/view/'+ehrId+'/height',
+		type: 'GET',
+		headers: {"Ehr-Session": sessionId},
+    	success: function (height) {
+			console.log("Uspesno prebrano Height.");
+				$.ajax({
+					url: baseUrl + '/view/'+ehrId+'/weight',
+					type: 'GET',
+					headers: {"Ehr-Session": sessionId},
+					success: function (weight) {
+						$('.BMIs').html("");
+						dataITM = [];
+						for(var i = weight.length-1; i >= 0 ; i--){
+							var h = parseFloat(height[i].height) / 100; //V m
+							var ITM = (parseFloat(weight[i].weight) / Math.pow(h,2)).toFixed(2);
+						 //	$('.BMIs').append("<li>"+ (weight[i].time).substr(0,10)+" "+ITM+"</li>");
+							var tm = weight[i].time
+							var date = new Date(tm.substr(0,4),tm.substr(5,2)-1,tm.substr(8,2));
+							dataITM.push({date: date,value: ITM }); 
 						}
-					});
-			},
-			error: function(err) {
-				$("#preberiSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
-				console.log("Napaka, branje ..."+JSON.parse(err.responseText).userMessage);
-				
-			}
-		});
-	}
+						draw(dataITM);
+					},
+					error: function(err) {
+						console.log("Napaka, branje ..."+JSON.parse(err.responseText).userMessage);
+					}
+				});
+		},
+		error: function(err) {
+			console.log("Napaka, branje ..."+JSON.parse(err.responseText).userMessage);
+			
+		}
+	});
+	
 }
 
 function checkIntervals(sign,val){
@@ -398,7 +391,7 @@ function dodajVitalne(){
 	var date = new Date();
 	var dateString = ((date.getYear()+1900)+"-"+ (date.getMonth()+1)+ "-"+date.getDate());
   	if(!$('#kreirajTeza').val() || !$('#kreirajVisina').val() || !$('#kreirajTemperatura').val() || !$('#kreirajSystolicni').val() || !$('#kreirajDiastolicni').val() || !$('#kreirajKisik').val() || !measurer){
-  			$("#kreirajMsgVitalni").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevane podatke!</span>");
+  			$("#kreirajMsgVitalni").html("<span class='obvestilo label label-warning fade-in'>Please enter required info!</span>");
   	}
   	else{
 		var measures = [{date:dateString,weight: $('#kreirajTeza').val(),height: $('#kreirajVisina').val(),temp: $('#kreirajTemperatura').val(),sistolic: $('#kreirajSystolicni').val()
