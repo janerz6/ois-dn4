@@ -1,0 +1,55 @@
+body{padding:10px;}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+#loadButt{
+	display:none;
+}
+.hidden{
+	display:none;	
+}
+#ITMchart{
+	width: 100%;
+}
+.personalInfo{
+	display:none;
+}
+.morris-hover{
+	position:absolute;
+	z-index:1000;
+	background: rgba(33, 43, 57, 0.2);
+	border-radius:2px;
+	border:1px,solid,gray;
+	padding:3px;
+}
+#header{
+	text-align:center;
+}
+.glyphicon{
+	color:#999;
+}
+#pacientCreator,#recordCreator{
+	display:none;
+}
+.table {
+	table-layout:fixed;
+}
+
+.table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+.label{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+	   
