@@ -427,7 +427,7 @@ $(document).ready(function() {
 		}
 	});
 	$('#patients').change(function() {
-		$('#mapLink').attr('href','../places/places.html');
+		$('#mapLink').attr('href','./places.html');
 		
 		if($(this).val() == "")
 			$('.personalInfo').slideUp(1500);
