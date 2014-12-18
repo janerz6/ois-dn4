@@ -60,14 +60,14 @@ function kreirajEHRzaBolnikaData(ime,priimek,datumRojstva,meritve) {
 	            data: JSON.stringify(partyData),
 	            success: function (party) {
 	                if (party.action == 'CREATE') {
-	                	$("#kreirajSporocilo").append("<span class='obvestilo label label-success fade-in'> Uspešno kreirana oseba za ehrID'" + ehrId + "'!</span><br>");
+	                	$("#kreirajSporocilo").append("<span class='obvestilo label label-success fade-in'> Successfully chreated EHR for EHR-ID '" + ehrId + "'!</span><br>");
 	                	$('#patients').append('<option value="'+ehrId+'">'+ime+" "+priimek +'</option>');
 	                	console.log("Uspešno kreirana oseba ehrID '" + ehrId +"'");
 	                	dodajMeritveVitalnihZnakovData(ehrId,meritve,false);
 	                }
 	            },
 	            error: function(err) {
-	            	$("#kreirajSporocilo").append("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!</span><br>");
+	            	$("#kreirajSporocilo").append("<span class='obvestilo label label-danger fade-in'>Error creating '" + JSON.parse(err.responseText).userMessage + "'!</span><br>");
 	            	console.log(JSON.parse(err.responseText).userMessage);
 	            }
 	        });
@@ -109,7 +109,7 @@ function kreirajEHRzaBolnika() {
 		            data: JSON.stringify(partyData),
 		            success: function (party) {
 		                if (party.action == 'CREATE') {
-		                    $("#kreirajMsg").html("<span class='obvestilo label label-success fade-in'>Successfully chreated EHR '" + ehrId + "'.</span>");
+		                    $("#kreirajMsg").html("<span class='obvestilo label label-success fade-in'>Successfully chreated EHR for EHR-ID '" + ehrId + "'.</span>");
 		                    console.log("Uspešno kreiran EHR '" + ehrId + "'.");
 		                   	$('#patients').append('<option value="'+ehrId+'">'+ime+" "+priimek +'</option>');
 		                   	//Clear fields
@@ -135,7 +135,7 @@ function dodajMeritveVitalnihZnakovData(ehrId,measures,report) {
 	sessionId = getSessionId();
 	console.log("dodajam vitalne znake...");
 	if ((!ehrId || ehrId.trim().length == 0) && report) {
-		console.log('Pleese enter required information!');
+		console.log('Please enter required information!');
 		if(report)
 			$("#kreirajMsgVitalni").html("<span class='obvestilo label label-warning fade-in'>Please enter required information!</span>");
 	} else {
