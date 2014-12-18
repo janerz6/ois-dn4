@@ -273,7 +273,7 @@ function getITM(ehrId){
 function checkIntervals(sign,val){
 	console.log("nastavljam "+sign+" "+val);
 	var status="normal";
-	var link='../places/places.html';
+	var link='./places.html';
 	for(var i=0;i < jsonData[sign].length; i++ ){
 		var sgn=jsonData[sign][i];
 		if(sgn.max > val && sgn.min < val){

@@ -1,92 +1,201 @@
-
 <!DOCTYPE html>
 <html>
-	<head>
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	    <title>EhrScape - Vnos in poizvedovanje po EHR podatkih</title>
-	    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-	    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-	    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-	    <script src="demo.js"></script>
+    <head>
+    	 <title>Health app</title>	
+    	 
+    	 <meta name="viewport" content="width=device-width, initial-scale=1">
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	    <!--Moris charts 
+	    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script> -->
+		<script src="js/data.js"></script> 
+	    <script src="js/script.js"></script>
+	    
+		<!--Graph links and scripts -->
+		<link rel="stylesheet" type="text/css" href="./graph/d3LineChart.css">
+	   <script src="//d3js.org/d3.v3.min.js" type="text/javascript"></script>
+	    <script type="text/javascript" src="./graph/jquery.tipsy.js"></script>
+	    <link href="./graph/tipsy.css" rel="stylesheet" type="text/css" /> 
+	    
 	    <style>
-	  		body {padding: 10px;}
-	  		.btn {margin-top: 10px;}
-	  		.obvestilo {margin-left:10px;}
-	  	</style>
-	</head>
-	<body>
-		<div class="page-header"><h2>Vnos in poizvedovanje po EHR podatkih <small>EhrScape platforma</small></h2></div>
-		<div class="row">
-			<div class="col-lg-6 col-md-6 col-sm-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-lg-8 col-md-8 col-sm-8"><b>Kreiraj EHR zapis</b> za novega bolnika</div>
-							<div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiPredlogoBolnika"><option value=""></option><option value="Pujsa,Pepa,1938-10-30T14:58">Pujsa Pepa</option></select></div>
-						</div>
-					</div>
-					<div class="panel-body">
-						<span class="label label-default">Ime</span><input id="kreirajIme" type="text" class="form-control input-mini" placeholder="Osama">
-						<span class="label label-default">Priimek</span><input id="kreirajPriimek" type="text" class="form-control" placeholder="Bin Laden">
-						<span class="label label-default">Datum rojstva</span><input id="kreirajDatumRojstva" type="text" class="form-control" placeholder="1957-03-10T09:08">
-						<button type="button" class="btn btn-primary btn-xs" onclick="kreirajEHRzaBolnika()">Dodaj osnovne podatke o bolniku</button><span id="kreirajSporocilo"></span>
-				  	</div>
+	     	body{padding:10px;}
+	     	.glyphicon-refresh-animate {
+			    -animation: spin .7s infinite linear;
+			    -webkit-animation: spin2 .7s infinite linear;
+			}
+			
+			@-webkit-keyframes spin2 {
+			    from { -webkit-transform: rotate(0deg);}
+			    to { -webkit-transform: rotate(360deg);}
+			}
+			#loadButt{
+				display:none;
+			}
+			.hidden{
+				display:none;	
+			}
+			#ITMchart{
+				width: 100%;
+			}
+			.personalInfo{
+				display:none;
+			}
+			.morris-hover{
+				position:absolute;
+				z-index:1000;
+				background: rgba(33, 43, 57, 0.2);
+				border-radius:2px;
+				border:1px,solid,gray;
+				padding:3px;
+			}
+			#header{
+				text-align:center;
+			}
+			.glyphicon{
+				color:#999;
+			}
+			#pacientCreator,#recordCreator{
+				display:none;
+			}
+			.table {
+				table-layout:fixed;
+			}
+			
+			.table td {
+			  white-space: nowrap;
+			  overflow: hidden;
+			  text-overflow: ellipsis;
+			
+			}
+			.label{
+			  overflow: hidden;
+			  text-overflow: ellipsis;
+			}
+	     </style>
+    </head>
+    <body>
+    <div id="header"><h1>Healthy lifestyle <small>for EhrScape users</small> </h1></div>	
+    <hr>
+	<div class="row">
+	<div class="col-lg-3 col-md-3 col-sm-3">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-lg-8 col-md-8 col-sm-8"><b>Data generator </b> for 3 pacients</div>
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6 col-sm-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-lg-8 col-md-8 col-sm-8"><b>Preberi EHR zapis</b> obstoječega bolnika</div>
-							<div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiObstojeciEHR"><option value=""></option><option value="254f791d-2e7c-49d9-b646-376f62d6ead5">Dejan Lavbič</option><option value="d564c6a3-5a43-4fcc-bfa7-9ac76e9673bd">Pujsa Pepa</option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02">Ata Smrk</option></select></div>
-						</div>
+			<div class="panel-body">
+				<button id="loadButton" type="button" class="btn btn-primary btn-ms" data-loading-text="Loading..." autocomplete="off">Generiraj</button><span id="kreirajSporocilo"></span>
+		  	</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-lg-11 col-md-11 col-sm-11"><b>Add pacient</b></div>
+					<div class="col-lg-1 col-md-1 col-sm-1" >
+						<span id="collapse" class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					</div>
-					<div class="panel-body">
-						<span class="label label-default">EHR ID</span><input id="preberiEHRid" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
-						<button type="button" class="btn btn-primary btn-xs" onclick="preberiEHRodBolnika()">Preberi osnovne podatke o bolniku</button><span id="preberiSporocilo"></span>
-				  	</div>
 				</div>
+				
+			</div>
+			<div id="pacientCreator" class="panel-body">
+				<span class="label label-default">Name</span><input id="kreirajIme" type="text" class="form-control input-mini" placeholder="Janez">
+				<span class="label label-default">Surname</span><input id="kreirajPriimek" type="text" class="form-control" placeholder="Novak">
+				<span class="label label-default">Date of birth:</span><input id="kreirajDatumRojstva" type="text" class="form-control" placeholder="yyyy-mm-dd">
+				<span class="label label-default">Gender:</span><br>
+				<div class="btn-group" data-toggle="buttons">
+				  <label id="male" class="btn btn-info btn-xs active">
+				    <input type="radio"   autocomplete="off">Male</label>
+				  <label id="female" class="btn btn-info btn-xs">
+				    <input type="radio" autocomplete="off">Female </label>
+				</div><br><br>
+				<div><button type="button" class="btn btn-primary btn-sm" onclick="kreirajEHRzaBolnika()">Add basic patient info</button></div><span id="kreirajMsg"></span>
+				
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-lg-6 col-md-6 col-sm-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-lg-8 col-md-8 col-sm-8"><b>Vnos</b> meritve <b>vitalnih znakov</b> bolnika</div>
-							<div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiObstojeciVitalniZnak"><option value=""></option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02|2014-11-21T11:40Z|185|80.0|36.50|118|92|98|medicinska sestra Smrketa">Ata Smrk</option></select></div>
-						</div>
-					</div>				
-					<div class="panel-body">
-						<span class="label label-default">EHR ID</span><input id="dodajVitalnoEHR" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
-						<span class="label label-default">Datum in ura</span><input id="dodajVitalnoDatumInUra" type="text" class="form-control input-mini" placeholder="2014-11-21T11:40Z">
-						<span class="label label-default">Telesna višina</span><div class="input-group"><input id="dodajVitalnoTelesnaVisina" type="text" class="form-control input-mini" placeholder="185"><span class="input-group-addon">cm</span></div>
-						<span class="label label-default">Telesna teža</span><div class="input-group"><input id="dodajVitalnoTelesnaTeza" type="text" class="form-control input-mini" placeholder="80.00"><span class="input-group-addon">kg</span></div>
-						<span class="label label-default">Telesna temperatura</span><div class="input-group"><input id="dodajVitalnoTelesnaTemperatura" type="text" class="form-control input-mini" placeholder="36.50"><span class="input-group-addon">°C</span></div>
-						<span class="label label-default">Sistolični krvni tlak</span><div class="input-group"><input id="dodajVitalnoKrvniTlakSistolicni" type="text" class="form-control input-mini" placeholder="118"><span class="input-group-addon">mm Hg</span></div>
-						<span class="label label-default">Diastolični krvni tlak</span><div class="input-group"><input id="dodajVitalnoKrvniTlakDiastolicni" type="text" class="form-control input-mini" placeholder="92"><span class="input-group-addon">mm Hg</span></div>
-						<span class="label label-default">Nasičenost krvi s kisikom</span><div class="input-group"><input id="dodajVitalnoNasicenostKrviSKisikom" type="text" class="form-control input-mini" placeholder="98"><span class="input-group-addon">%</span></div>
-						<span class="label label-default">Merilec</span><input id="dodajVitalnoMerilec" type="text" class="form-control input-mini" placeholder="medicinska sestra Hrastova Micka">
-						<button type="button" class="btn btn-primary btn-xs" onclick="dodajMeritveVitalnihZnakov()">Dodaj meritve vitalnih znakov</button><span id="dodajMeritveVitalnihZnakovSporocilo"></span>
-				  	</div>
+		<div class="panel panel-primary">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-4"><b>Add measuremet</b></div>
+				<div class="col-lg-7 col-md-7 col-sm-7" >
+					<select id="selectToAdd" class="form-control input-sm"><option value=""></option></select>
 				</div>
-			</div>	
-			<div class="col-lg-6 col-md-6 col-sm-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<div class="row">
-							<div class="col-lg-6 col-md-6 col-sm-6"><b>Pregled</b> meritev <b>vitalnih znakov</b> bolnika</div>
-							<div class="col-lg-3 col-md-3 col-sm-3"><select class="form-control input-sm" id="preberiTipZaVitalneZnake"><option value="telesna temperatura">telesna temperatura</option><option value="telesna temperatura AQL">telesna temperatura (filter na podhladitev)</option><option value="telesna teža">telesna teža</option></select></div>
-							<div class="col-lg-3 col-md-3 col-sm-3"><select class="form-control input-sm" id="preberiEhrIdZaVitalneZnake"><option value=""></option><option value="b931580f-2b05-488b-985b-8d9ffb08ad02">Ata Smrk</option><option value="d564c6a3-5a43-4fcc-bfa7-9ac76e9673bd">Pujsa Pepa</option></select></div>
-						</div>
-					</div>				
-					<div class="panel-body">
-						<span class="label label-default">EHR ID</span><input id="meritveVitalnihZnakovEHRid" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
-						<button type="button" class="btn btn-primary btn-xs" onclick="preberiMeritveVitalnihZnakov('telesna temperatura')">Preberi meritve vitalnih znakov</button><span id="preberiMeritveVitalnihZnakovSporocilo"></span>
-						<div id="rezultatMeritveVitalnihZnakov"></div>
-				  	</div>
-				</div>			
+				<div class="col-lg-1 col-md-1 col-sm-1"><span id="collapseMeasurement" class="glyphicon glyphicon-plus" aria-hidden="true"></span></div>
 			</div>
 		</div>
-	</body>
+		<div id="recordCreator" class="panel-body">
+			<span class="label label-default">Height</span><div class="input-group" ><input id="kreirajVisina" type="text" class="form-control input-mini" placeholder="175"/><span class="input-group-addon">cm</span></div>
+			<span class="label label-default">Weight</span><div class="input-group" ><input id="kreirajTeza" type="text" class="form-control" placeholder="88"/><span class="input-group-addon">kg</span></div>
+			<span class="label label-default">Temperature:</span><div class="input-group" ><input id="kreirajTemperatura" type="text" class="form-control" placeholder="37"/><span class="input-group-addon">°C</span></div>
+			<span class="label label-default">Systolic blood preasure:</span><div class="input-group" ><input id="kreirajSystolicni" type="text" class="form-control" placeholder="120"/><span class="input-group-addon">mm Hg</span></div>
+			<span class="label label-default">Diastolic blood preasure:</span><div class="input-group" ><input id="kreirajDiastolicni" type="text" class="form-control" placeholder="80"/><span class="input-group-addon">mm Hg</span></div>
+			<span class="label label-default">Oxigen saturation:</span><div class="input-group" ><input id="kreirajKisik" type="text" class="form-control" placeholder="95"/><span class="input-group-addon">%</span></div>
+			<span class="label label-default">Measurer:</span>
+			<div><div style="float:left; width:49%" class="checkbox"><label><input id="merilecIsti" type="checkbox">Pacient himself</label></div> <input style="margin-left:2%; float:left; width:49%" id="kreirajMerilec" type="text" class="form-control" placeholder="Janez Novak"/></div>
+			<br><br>
+			<div><button type="button" class="btn btn-primary btn-sm" id="dodajMeritev">Add measuremet</button></div><span id="kreirajMsgVitalni"></span>
+		</div>
+	</div>
+	</div>
+	<div class="col-lg-9 col-md-9 col-sm-9">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6"><b>Selected pacient's</b> info</div>
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<select class="form-control input-sm" id="patients">
+							<option value=""></option>
+							<option value="2d1444fe-898a-4596-9961-6f7903e1ba73">David Mesarič</option>
+							<option value="65fb264a-8be3-4df3-9515-8b0137d66c7a">Tina Novak</option>
+							<option value="f54d4175-3912-49a2-a1f1-c67c63accc52">Brigita Šuler</option>
+						</select></div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="personalInfo">
+					<div class="panel panel-default col-col-md-6">
+					  <div class=panel-heading><b>Personal data</b></div>	
+					  <div class="panel-body">
+					  		<div><span class="label label-default">Name:</span>&nbsp;<span class="personsName"></span></div>
+							<div><span class="label label-default">Surname:</span>&nbsp;<span class="personsLastName"></span></div>
+							<div><span class="label label-default">Date of birth:</span>&nbsp;<span class="personsBirth"></span></div>  
+					  </div>
+					</div>
+					<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6" id="vital_signs_status">
+						<div class="panel panel-default">
+						<div class="panel-heading"><b>Vital signs state</b></div>
+						<div class="panel-body" id="status_vitals">
+							<table style="max-width:100%" class="table table-condensed">
+								<tr><th>Vital sign</th><th>Last measuremet's date</th><th>Last measurement</th><th>Status</th></tr>
+								<tr class="warning"><td>ITM</td><td class="last_date">20.6.2010</td><td id="BMI_last">22</td><td id="BMI_status">OK</td></tr>
+								<tr class="danger"><td>Temperature</td><td class="last_date"></td><td id="temperature_last"></td><td id="Temperature_status"></td></tr>
+	 							<tr class="active"><td>Diastolic blood preasure</td><td class="last_date"></td><td id="diastolic_last"></td><td id="Diastolic_status"></td></tr>
+								<tr class="success"><td>Systolic blood preasure</td><td class="last_date"></td><td id="sistolic_last"></td><td id="Systolic_status"></td></tr>
+								<tr class="info"><td>Oxigen saturation</td><td class="last_date"></td><td id="oximetry_last"></td><td id="Oximetry_status"></td></tr>
+							</table>
+						</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<div id="ITMchartPanel"class="panel panel-warning">
+							<div class="panel-heading"><b>Graph of BMI</b></div>
+							<div class="panel-body" id="chartWrapper">
+								<div id="chart"></div>
+							 <!--	<div id="ITMchart" class="col-lg-8"  style="height: 250px;"></div>-->
+							</div>
+						</div>
+					</div>
+			</div>
+			<div id="results"></div><a id="mapLink" href="places.html" target="_blank">link</a>
+		</div>
+	</div>
+	</div>
+	</div>
+	
+	 <script src="./graph/d3LineChart.js" type="text/javascript"></script> 
+	</body> 
 </html>
