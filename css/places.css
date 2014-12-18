@@ -1,6 +1,7 @@
 
 body{
   margin:3%;
+  margin-top:10px;
 }
 #map-canvas{
   height:700px;
