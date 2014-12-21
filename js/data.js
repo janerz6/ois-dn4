@@ -90,14 +90,15 @@ var jsonData={
 	}
 	],	
 "Temperature":[
-		{	"max":35.0,
-			"min":0,
+	
+		{	"min":0,
+			"max":35.9,
 			"status":"Hypothermia",
 			"class":"warning"
 			},
 		{	
-			"min":36.5,
-			"max":37.5,
+			"min":36,
+			"max":37.4,
 			"status":"Normal",
 			"class":"success"
 		},
