@@ -145,8 +145,8 @@ var jsonData={
 var messages={
 "emergency":"Your vital signs are showing us, that your health condition is urgent. We suggest you, that you, as quickly as you can, visit the nearest hospital. You can find them here:",
 "underweight":"Your body mass index is showing us, that you are underweight. We suggest you, that you talk to nearest doctor about your nutrition plan, and that you start eating and exercising regulatly, becouse this will that will transform nutrients mostly into your muscle.The following link will help you find nearest doctors and food resources.",
-"normal":"You body mass index shows that your health condition is stable, and that you are healty. Keep on maintaining it.",
-"overweight":"You body mass index shows, that you are a bit overweight. You should take a look at the following link, to find nearest gym or park to excercise and your body will be gratefull for it.",
+"normal":"You body mass index and other vital signs show that your health condition is stable, and that you are healty. Keep on maintaining it.",
+"overweight":"You body mass index shows, that you are a bit overweight. You should take a look at the following link, to find nearest gym or park to excercise and your body will be gratefull to you.",
 "obese":"The measured body mass index shows us the status of obesity. You should visit nearest doctor and analise your eating habits and phisical activity. Nearest doctors can be found on following link:"
 
 	
