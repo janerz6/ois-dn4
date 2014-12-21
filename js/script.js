@@ -5,20 +5,20 @@ var queryUrl = baseUrl + '/query';
 var username = "ois.seminar";
 var password = "ois4fri";
 
-var measures1 = [{date:'2001-10-20T12:30',weight:85,height:188,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'},
-				{date:'2003-10-20T12:30',weight:85,height:188,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'},
-				{date:'2005-10-20T12:30',weight:85,height:188,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'},
-				{date:'2009-10-20T12:30',weight:85,height:188,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'}];
+var measures1 = [{date:'2001-10-20T12:30',weight:85,height:182,temp:38,sistolic:118,diastolic:74,oxigen:98,measurer:'Dr. Öetker'},
+				{date:'2003-10-20T12:30',weight:87,height:183,temp:38,sistolic:123,diastolic:76,oxigen:97,measurer:'Dr. Öetker'},
+				{date:'2005-10-20T12:30',weight:88,height:183,temp:38,sistolic:133,diastolic:71,oxigen:96,measurer:'Dr. Öetker'},
+				{date:'2009-10-20T12:30',weight:89,height:183,temp:38,sistolic:119,diastolic:79,oxigen:95,measurer:'Dr. Öetker'}];
 				
-var measures2 = [{date:'2010-10-20T18:30',weight:40,height:150,temp:36,sistolic:125,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'},
-				{date:'2011-10-20T18:30',weight:42,height:155,temp:36,sistolic:125,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'},	
-				{date:'2012-10-20T18:30',weight:44,height:158,temp:36.5,sistolic:125,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'},
-				{date:'2013-10-20T18:30',weight:58,height:162,temp:37.2,sistolic:125,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'}];
+var measures2 = [{date:'2010-10-20T18:30',weight:40,height:150,temp:36,sistolic:123,diastolic:85,oxigen:92,measurer:'Dr. Clauss Nicolsen'},
+				{date:'2011-10-20T18:30',weight:42,height:155,temp:36,sistolic:121,diastolic:88,oxigen:93,measurer:'Dr. Clauss Nicolsen'},	
+				{date:'2012-10-20T18:30',weight:44,height:158,temp:36.5,sistolic:128,diastolic:78,oxigen:95,measurer:'Dr. Clauss Nicolsen'},
+				{date:'2013-10-20T18:30',weight:58,height:162,temp:37.2,sistolic:121,diastolic:83,oxigen:94,measurer:'Dr. Clauss Nicolsen'}];
 				
-var measures3 = [{date:'2010-03-01T07:15',weight:45,height:173,temp:38,sistolic:115,diastolic:79,oxigen:88,measurer:'Dr. Dakl'},
-				{date:'2011-03-01T07:15',weight:45,height:173,temp:38,sistolic:115,diastolic:79,oxigen:88,measurer:'Dr. Dakl'},
-				{date:'2012-03-01T07:15',weight:45,height:173,temp:38,sistolic:115,diastolic:79,oxigen:88,measurer:'Dr. Dakl'},
-				{date:'2013-03-01T07:15',weight:45,height:173,temp:38,sistolic:115,diastolic:79,oxigen:88,measurer:'Dr. Dakl'}];
+var measures3 = [{date:'2010-03-01T07:15',weight:50,height:173,temp:38,sistolic:115,diastolic:76,oxigen:91,measurer:'Dr. Dakl'},
+				{date:'2011-03-01T07:15',weight:48,height:173,temp:38,sistolic:105,diastolic:75,oxigen:94,measurer:'Dr. Dakl'},
+				{date:'2012-03-01T07:15',weight:43,height:173,temp:38,sistolic:109,diastolic:77,oxigen:93,measurer:'Dr. Dakl'},
+				{date:'2013-03-01T07:15',weight:44,height:173,temp:38,sistolic:119,diastolic:78,oxigen:96,measurer:'Dr. Dakl'}];
 				
 var persons = [	{name:'David',surname:'Mesarić',birth:'1938-10-30T14:58', measures: measures1},
 				{name:'Brigita',surname:'Šuler',birth:'1999-11-06T18:28', measures: measures2},
