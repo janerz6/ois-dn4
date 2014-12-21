@@ -19,7 +19,7 @@ function success(pos) {
     zoom: 10
   });
   
-  requests['emergency'] = {location: pyrmont,radius: rad,keyword:'emergency', types: ['hospital']};
+  requests['emergency'] = {location: pyrmont,radius: rad, types: ['hospital']};
   requests['overweight'] = {location: pyrmont,radius: rad, types: ['gym','park']};
   requests['obese'] = {location: pyrmont,radius: rad, types: ['gym','hospital']};
   requests['underweight'] = {location: pyrmont,radius: rad, types: ['hospital','health','food']}; 
