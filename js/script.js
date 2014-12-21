@@ -15,9 +15,9 @@ var measures2 = [{date:'2010-10-20T18:30',weight:40,height:150,temp:36,sistolic:
 				{date:'2012-10-20T18:30',weight:44,height:158,temp:36.5,sistolic:128,diastolic:78,oxigen:95,measurer:'Dr. Clauss Nicolsen'},
 				{date:'2013-10-20T18:30',weight:58,height:162,temp:37.2,sistolic:121,diastolic:83,oxigen:94,measurer:'Dr. Clauss Nicolsen'}];
 				
-var measures3 = [{date:'2010-03-01T07:15',weight:50,height:173,temp:38,sistolic:115,diastolic:76,oxigen:91,measurer:'Dr. Dakl'},
-				{date:'2011-03-01T07:15',weight:48,height:173,temp:38,sistolic:105,diastolic:75,oxigen:94,measurer:'Dr. Dakl'},
-				{date:'2012-03-01T07:15',weight:43,height:173,temp:38,sistolic:109,diastolic:77,oxigen:93,measurer:'Dr. Dakl'},
+var measures3 = [{date:'2010-03-01T07:15',weight:55,height:173,temp:38,sistolic:115,diastolic:76,oxigen:91,measurer:'Dr. Dakl'},
+				{date:'2011-03-01T07:15',weight:42,height:173,temp:38,sistolic:105,diastolic:75,oxigen:94,measurer:'Dr. Dakl'},
+				{date:'2012-03-01T07:15',weight:48,height:173,temp:38,sistolic:109,diastolic:77,oxigen:93,measurer:'Dr. Dakl'},
 				{date:'2013-03-01T07:15',weight:44,height:173,temp:38,sistolic:119,diastolic:78,oxigen:96,measurer:'Dr. Dakl'}];
 				
 var persons = [	{name:'David',surname:'Mesarić',birth:'1938-10-30T14:58', measures: measures1},
